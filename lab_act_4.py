@@ -1,11 +1,14 @@
+from abc import ABC, abstractmethod
+
 class Plant:
-    def __init__(self, name, species, age, soil_type, growth_rate, height):
+    def __init__(self, name, species, age, soil_type, growth_rate, height, is_healthy=True):
         self.name = name
         self.species = species
         self.age = age
         self.soil_type = soil_type
         self.growth_rate = growth_rate
         self.height = height
+        self.is_healthy = is_healthy
     
     def water(self):
         print(f"{self.name} has been watered. The soil remains suitable for {self.soil_type} soil plants.")
@@ -17,43 +20,43 @@ class Plant:
     def photosynthesize(self):
         print(f"{self.name} is converting sunlight into energy through photosynthesis.")
 
+    @abstractmethod
     def check_lifespan(self):
         pass
 
 class Tree(Plant):
-    def __init__(self, name, height, age, soil_type, growth_rate, wood_type, is_fruitbearing=True, can_shed_leaves=True):
+    def __init__(self, name, height, age, soil_type, growth_rate, wood_type, is_fruitbearing=True, can_drop_leaves=True):
         super().__init__(name, height, age, soil_type, growth_rate)
         self.wood_type = wood_type
-        self.is_fruitbearing = is_fruitbearing
-        self.can_shed_leaves = can_shed_leaves
+        self.is_fruit_bearing = is_fruit_bearing
+        self.can_drop_leaves = can_drop_leaves
 
-    def is_fruitbearing(self):
-        if self.is_fruitbearing == False:
-            print(f"{self.name} is not fruitbearing.")
+    def is_fruit_bearing(self):
+        if self.is_fruit_bearing == False:
+            print(f"{self.name} is not fruit bearing.")
         else:
-            print(f"{self.name} is fruitbearing.")
+            print(f"{self.name} is fruit bearing.")
 
     def shed_leaves(self):
-        if self.can_shed_leaves == False:
+        if self.can_drop_leaves == False:
             print(f"{self.name} cannot shed leaves yet.")
         else:
             print(f"{self.name} is ready to shed leaves.")
 
 class Shrub(Plant):
-    def __init__(self, name, species, age, soil_type, growth_rate, has_thorns=True, shed_leaves=True, is_healthy=True ):
+    def __init__(self, name, species, age, soil_type, growth_rate, has_thorns=True, can_shed_leaves=True):
         super().__init__(name, species, age, soil_type, growth_rate)
         self.has_thorns = has_thorns
-        self.shed_leaves = shed_leaves
-        self.is_healthy = is_healthy
+        self.can_shed_leaves = can_shed_leaves
 
     def shed_leaves(self):
-        if not self.shed_leaves:
+        if not self.can_shed_leaves:
             print(f"{self.name} is not ready to shed leaves.")
         else:
             print(f"{self.name} is ready to shed leaves.")
 
     def prune(self):
-        if self.shed_leaves == False and self.is_healthy == True:
+        if self.can_shed_leaves == False and self.is_healthy == True:
             return f"{self.name} is currently prunable."
         elif self.shed_leaves == True and self.is_healthy == False:
             return f"{self.name} is not currently prunable."
