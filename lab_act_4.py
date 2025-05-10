@@ -1,31 +1,31 @@
 class Plant:
-    def __init__(self, name, species, height, age, soil_type, growth_rate):
+    def __init__(self, name, species, age, soil_type, growth_rate, height):
         self.name = name
         self.species = species
-        self.height = height
         self.age = age
         self.soil_type = soil_type
         self.growth_rate = growth_rate
+        self.height = height
     
-    def watering(self):
+    def water(self):
         print(f"{self.name} has been watered. The soil remains suitable for {self.soil_type} soil plants.")
-    
-    def photosynthesize(self):
-        print(f"{self.name} is converting sunlight into energy through photosynthesis.")
     
     def grow(self):
         self.height += self.growth_rate
         print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
 
-    def lifespan(self):
+    def photosynthesize(self):
+        print(f"{self.name} is converting sunlight into energy through photosynthesis.")
+
+    def check_lifespan(self):
         pass
 
 class Tree(Plant):
-    def __init__(self, name, height, age, soil_type, growth_rate, wood_type, is_fruitbearing=True, shed_leaves=True):
+    def __init__(self, name, height, age, soil_type, growth_rate, wood_type, is_fruitbearing=True, can_shed_leaves=True):
         super().__init__(name, height, age, soil_type, growth_rate)
         self.wood_type = wood_type
         self.is_fruitbearing = is_fruitbearing
-        self.shed_leaves = shed_leaves
+        self.can_shed_leaves = can_shed_leaves
 
     def is_fruitbearing(self):
         if self.is_fruitbearing == False:
@@ -34,8 +34,8 @@ class Tree(Plant):
             print(f"{self.name} is fruitbearing.")
 
     def shed_leaves(self):
-        if self.shed_leaves == False:
-            print(f"{self.name} is not ready to shed leaves.")
+        if self.can_shed_leaves == False:
+            print(f"{self.name} cannot shed leaves yet.")
         else:
             print(f"{self.name} is ready to shed leaves.")
 
