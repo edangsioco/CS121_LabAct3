@@ -23,8 +23,9 @@ class Plant:
 
     def check_lifespan(self):
         pass
+        # wadodo?
 
-# class: child (1)
+# class: CHILD (1)
 class Tree(Plant):
     def __init__(self, name, height, age, soil_type, growth_rate, wood_type, is_fruit_bearing=True, can_drop_leaves=True):
         super().__init__(name, age, soil_type, growth_rate, height, is_healthy=True)
@@ -44,7 +45,7 @@ class Tree(Plant):
         else:
             print(f"{self.name} is ready to shed leaves.")
 
-# class: child (2)
+# class: CHILD (2)
 class Shrub(Plant):
     def __init__(self, name, species, age, soil_type, growth_rate, has_thorns=True, can_shed_leaves=True):
         super().__init__(name, species, age, soil_type, growth_rate, is_healthy=True)
@@ -67,7 +68,7 @@ class Shrub(Plant):
         else:
             print(f"{self.name} is ready to shed leaves.")
             
-# class: child (3)
+# class: CHILD (3)
 class Flower(Plant):
     def __init__(self, name, species, height, age, soil_type, growth_rate, petal_color, petal_type, scent, has_nectar=True):
         super().__init__(name, species, age, soil_type, growth_rate, is_healthy=True)
@@ -87,8 +88,9 @@ class Flower(Plant):
         
     def attracted_pollinators(self):
         pass
+        # wadodo: another dictionary?
 
-# class: child (4)
+# class: CHILD (4)
 class Herb(Plant):
     def __init__(self, name, species, height, age, soil_type, growth_rate, use_type, is_toxic=True):
         super().__init__(name, is_healthy=True)
@@ -104,7 +106,7 @@ class Herb(Plant):
     def harvest(self):
         print(f"Harvesting {self.name} for {self.use}.")
 
-# class: child (5)
+# class: CHILD (5)
 class Succulent(Plant):
         def __init__(self, name, species, height, age, soil_type, growth_rate, water_storage_type, is_storing_water=False):
             super().__init__(name, soil_type, is_healthy=True)
@@ -128,7 +130,7 @@ class Succulent(Plant):
             else:
                 print(f"{self.name} won't survive the drought.")
 
-# class: child (6)
+# class: CHILD (6)
 class Vine(Plant):
         def __init__(self, name, species, height, age, soil_type, growth_rate, thickness, spread_direction):
             super().__init__(name, species, age, soil_type, growth_rate, height, is_healthy=True)
