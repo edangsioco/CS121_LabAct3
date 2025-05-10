@@ -47,17 +47,17 @@ class Shrub(Plant):
         self.is_healthy = is_healthy
 
     def shed_leaves(self):
-        if self.shed_leaves == False:
+        if not self.shed_leaves:
             print(f"{self.name} is not ready to shed leaves.")
         else:
             print(f"{self.name} is ready to shed leaves.")
 
     def prune(self):
-        if shed.leaves == False and is_healthy == True:
+        if self.shed_leaves == False and self.is_healthy == True:
             return f"{self.name} is currently prunable."
-        elif shed.leaves == True and is_healthy == False:
+        elif self.shed_leaves == True and self.is_healthy == False:
             return f"{self.name} is not currently prunable."
-        elif shed.leaves == True and is_healthy == True:
+        elif self.shed_leaves == True and self.is_healthy == True:
             return f"{self.name} can be pruned now."
         else:
             return f"{self.name} cannot be pruned for now."
@@ -82,51 +82,51 @@ class Flower(Plant):
         pass
 
 class Herb(Plant):
-    def __init__(name, species, height, age, soil_type, growth_rate, use_type, is_toxic):
+    def __init__(self, name, species, height, age, soil_type, growth_rate, use_type, is_toxic):
         super().__init__(name)
-        self.use = use_type
-        self.is_toxic = True
+        self.use_type = use_type
+        self.is_toxic = is_toxic
 
-    def harvest():
+    def harvest(self):
         print(f"Harvesting {self.name} for {self.use}")
 
-    def check_safety():
-        if is_toxic:
+    def check_safety(self):
+        if self.is_toxic:
             print(f"{self.name} is not safe to consume")
         else: 
             print(f"{self.name} is safe to consume")
 
 class Succulent(Plant):
-        def __init__(name, species, height, age, soil_type, growth_rate, water_storage_type, is_water_stored):
-        super().__init__(name, soil_type)
-        self.water_storage = water_storage_type
-        self.is_water_stored = is_water_stored
+        def __init__(self, name, species, height, age, soil_type, growth_rate, water_storage_type, is_water_stored):
+            super().__init__(name, soil_type)
+            self.water_storage = water_storage_type
+            self.is_water_stored = is_water_stored
         
-
-        def store_water():
+        def store_water(self):
             print(f"The {self.name} is now storing water...")
-            return is_water_stored = True
+            self.is_water_stored = True
+            return self.is_water_stored
 
-        def drought_protection():
-            if is_water_stored:
+        def drought_protection(self):
+            if self.is_water_stored:
                 print(f"The {self.name} can survive the drought.")
             else:
                 print(f"{self.name} won't survive the drought.")
 
 class Vine(Plant):
-        def __init__(name, species, height, age, soil_type, growth_rate, thickness, spread_direction):
-        super().__init__(name, growth_rate)
-        self.thickness = thickness
-        self.spread_direction = spread_direction
+        def __init__(self, name, species, height, age, soil_type, growth_rate, thickness, spread_direction):
+            super().__init__(name, growth_rate)
+            self.thickness = thickness
+            self.spread_direction = spread_direction
 
-        def crawl():
+        def crawl(self):
             print(f"The vine {self.name} is now growing horizontally")
             spread_direction = "Horizontally"
-        def climb():
+        def climb(self):
             print(f"The vine {self.name} is now growing vertically")
             spread_direction = "Vertically"
-        def spread():
-            if spread_direction == "Vertically" or spread_direction == "Horizontally":
+        def spread(self):
+            if self.spread_direction == "Vertically" or self.spread_direction == "Horizontally":
                 print(f"{self.name} is now spreading {self.spread_direction} at the rate {self.growth_rate} per day and is currently {self.thick} in diameter.")
             else:
                 print(f"{self.name} is now spreading at the rate {self.growth_rate} per day and is currently {self.thick} in diameter.")
