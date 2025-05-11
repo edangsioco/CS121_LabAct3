@@ -2,33 +2,31 @@ from abc import ABC, abstractmethod
 import time
 import random
 
-
 # class: PARENT
 class Plant(ABC):
-    def __init__(self, name, soil_type, species=None, age=0, height=0, watered = False, photosynthesized = False, is_healthy = True):
+    def __init__(self, name, soil_type, species, age, height, is_healthy=True, is_watered=False, has_photosynthesized=False):
         self.name = name
-        self.species = species
         self.soil_type = soil_type
-        self.age = 8
+        self.species = species
+        self.age = age
         self.height = height
         self.is_healthy = is_healthy
-        self._watered = watered
-        self._photosynthesized = photosynthesized
+        self.is_watered = is_watered
+        self.has_photosynthesized = has_photosynthesized
     
     def water(self):
-        if self.watered:
-            print(f"{self.name} has been watered. Please try again next time")
+        if self.is_watered:
+            print(f"{self.name} has been watered. Please try again next time.")
         else:
+            self.is_watered = True
             print(f"{self.name} has been watered.")
-            self.watered = True
 
     def photosynthesize(self):
-        if self.photosynthesized:
+        if self.is_photosynthesized:
             print(f"{self.name} is currently photosynthesizing. Please do not disturb.")
         else:
+            self.is_photosynthesized = True
             print(f"{self.name} is converting sunlight into energy through photosynthesis.")
-            self.photosynthesized = True
-            
     
     @property
     def watered(self):
@@ -36,7 +34,7 @@ class Plant(ABC):
     
     @watered.setter
     def watered(self, value):
-        self._watered = value
+        self._is_watered = value
     
     @property
     def photosynthesized(self):
@@ -44,73 +42,80 @@ class Plant(ABC):
     
     @photosynthesized.setter
     def photosynthesized(self, value):
-        self._photosynthesized = value
+        self._is_photosynthesized = value
 
+    @abstractmethod
     def grow(self):
         pass
 
+    # @abstractmethod
     def check_lifespan(self):
         pass
-        # wadodo?
 
 # class: CHILD (1)
 class Tree(Plant):
-    def __init__(self, name, harvest, height, age, soil_type, growth_rate, can_drop_leaves=True, has_fruit = False):
-        super().__init__(name, age, soil_type, growth_rate, height, photosynthesized, watered, is_healthy=True)
+    def __init__(self, name, harvest, height, age, soil_type, growth_rate=2, can_drop_leaves=True, has_fruit=False):
+        super().__init__(name=name, soil_type=soil_type, species="Tree", age=age, height=height, is_healthy=True, is_watered=False, has_photosynthesized=False)
         self.can_drop_leaves = can_drop_leaves
-        self.growth_rate = 2
+        self.growth_rate = growth_rate
         self.harvest = harvest
         self.has_fruit = has_fruit
         self.last_fruit_month = 0
 
     def check_for_fruits(self):
+        # if Tree has no fruit:
         if (
-        self.age >= 15
-        and self.watered
-        and self.photosynthesized
+        self.age >= 15 # months
+        and self.is_watered
+        and self.has_photosynthesized
         and not self.has_fruit
         and self.age - self.last_fruit_month >= 3
-         ):
+        ):
             self.has_fruit = True
             self.last_fruit_month = self.age
 
+        # if Tree has fruit:
         if self.has_fruit:
-            harvest =  input(f"{self.name} is now bearing fruit. Harvest(y/n)? ").lower()
+            harvest =  input(f"{self.name} is now bearing fruit. Harvest? (y/n): ").lower()
             if harvest == "y":
-                    print("Harvesting fruit...")
+                    print("Harvesting fruit... ")
                     time.sleep(3)
                     print("Fruit has been harvested!")
                     self.has_fruit = False
             else:
-                print(f"{self.name} is not ready to produce fruits.")
+                print(f"{self.name}'s fruits stay.")
         else:
             print(f"{self.name} is not ready to produce fruits.")
 
-    def shed_leaves(self):
+    def drop_leaves(self):
         if self.age > 15 and self.age % 6 == 0:
             self.can_drop_leaves = True
         else:
             self.can_drop_leaves = False
             
     def grow(self):
-        if self.watered == True and self.photosynthesized == True:
+        if self.is_watered == True and self.has_photosynthesized == True:
             self.height += self.growth_rate
             self.age += 1
             self.photosynthesized = False
             self.watered = False
             self.can_drop_leaves = False
-            if self.can_drop_leaves == True:
-                print(f"{self.name} is sheding leaves.")
-            print(f"Entering month {self.age + 1}...")
+            
+            # optional logic?
+            if self.can_drop_leaves:
+                print(f"{self.name} is dropping leaves.")
+            
+            print(f"Entering month {self.age}... ")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
+            
         else:
-            print(f"Please water the {self.name} first and let it photosynthesize...")
+            print(f"Please water {self.name} first and let it photosynthesize...")
 
 # class: CHILD (2)
 class Shrub(Plant):
     def __init__(self, name, choice2, choice3, soil_type, height, age, can_shed_leaves=False, is_healthy=True):
-        super().__init__(name, age, soil_type, height, photosynthesized, watered)
+        super().__init__(name, age, soil_type, height, is_watered=False, has_photosynthesized=False)
         self.can_shed_leaves = can_shed_leaves
         self.growth_rate = 1
         self.choice2 = choice2
@@ -124,35 +129,41 @@ class Shrub(Plant):
             and not self.is_healthy
             and self.age - self.last_prune >= 3
             ):
-            choice2 = input(f"{self.name} is currently prunable. Proceed(y/n)?")
+            choice2 = input(f"{self.name} is currently prunable. Proceed? (y/n): ").lower()
+            
             if choice2 == "y":
-                print("Currently pruning...")
-                time.sleep(1)
-                print("removing the branch...")
+                print("Currently pruning... ")
                 time.sleep(2)
+                print("removing the branch...")
+                time.sleep(4)
                 print(f"Pruning complete, the {self.name} is now healthy.")
                 self.is_healthy = True
                 self.last_prune = self.age
 
         elif (self.can_shed_leaves == False
-              and self.is_healthy == True
-              and self.age - self.last_prune >= 1
-              ):
-            choice3 = input("Plant is currently healthy. Pruning would only cause harm. Continue(y/n)?")
+            and self.is_healthy == True
+            and self.age - self.last_prune >= 1
+            ):
+            
+            choice3 = input("Plant is currently healthy, but pruning right now could cause harm. Take the risk? (y/n): ").lower()
+            
             if choice3 == "y":
-                print("Currently pruning...")
-                time.sleep(1)
-                print("removing the branch...")
+                print("Currently pruning... ")
                 time.sleep(2)
+                print("Removing the branch...")
+                time.sleep(4)
+                
                 if self.num == 1:
-                    print(f"Pruning complete. A minor issue was found and fixed. The pruning has made {self.name} even healthier!")
                     self.is_healthy = True
+                    print(f"Pruning complete. A minor issue was found and fixed. The pruning has made {self.name} even healthier!")
+                    
                 else:
-                    print(f"Pruning complete. The pruning has made the {self.name} unhealthy")
                     self.is_healthy = False
+                    print(f"Pruning complete. The pruning has made the {self.name} unhealthy :(")
+                
                 self.last_prune = self.age
         else:
-            print(f"{self.name} cannot be pruned for now.")
+            print(f"{self.name} cannot be pruned right now.")
 
     def shed_leaves(self):
         if self.age >= 12 and self.age % 6 == 0:
@@ -161,33 +172,36 @@ class Shrub(Plant):
             self.can_shed_leaves = False
 
     def grow(self):
-        if self.watered == True and self.photosynthesized == True and self.is_healthy == True:
+        if self.is_watered == True and self.has_photosynthesized == True and self.is_healthy == True:
             self.height += self.growth_rate
             self.age += 1
-            self.photosynthesized = False
-            self.watered = False
+            self.has_photosynthesized = False
+            self.is_watered = False
             self.can_drop_leaves = False
-            if self.can_drop_leaves == True:
-                print(f"{self.name} is sheding leaves.")
-            print(f"Entering month {self.age + 1}...")
+            
+            # optional logic? (2)
+            if self.can_drop_leaves:
+                print(f"{self.name} is shedding leaves.")
+            
+            print(f"Entering month {self.age}... ")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
-            if self.age > 6 and self.age % 3 == 0:
-                print(f"The {self.name} needs pruning.")
+            
+            if self.age >= 12 and (self.age % 3 == 0 or self.age % 4 == 0):
                 self.is_healthy = False
+                print(f"The {self.name} could use some pruning.")
+
         else:
-            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...")       
+            print(f"Please water and prune {self.name} plant first, and let it photosynthesize...")       
             
 # class: CHILD (3)
 class Flower(Plant):
     def __init__(self, name, species, height, age, soil_type, growth_rate, petal_color, petal_type, scent, has_nectar=True):
-        super().__init__(name, age, soil_type, growth_rate, height, photosynthesized, watered, is_healthy=True)
+        super().__init__(name, age, soil_type, growth_rate, height, has_photosynthesized=False, is_watered=False, is_healthy=True)
         self.petal_color = petal_color
         self.petal_type = petal_type
         self.scent = scent
         self.has_nectar = has_nectar
-        
-        #wadodoo: dictionary of pollinators
     
     def is_blooming(self):
         if self.age >= 2: # years
@@ -198,7 +212,6 @@ class Flower(Plant):
         
     def attracted_pollinators(self):
         pass
-        # wadodo: another dictionary?
 
 # class: CHILD (4)
 class Herb(Plant):
@@ -262,47 +275,73 @@ class Vine(Plant):
                 print(f"{self.name} is now spreading at the rate {self.growth_rate} per day and is currently {self.thickness} in diameter.")
 
 
-#MENU
-soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
-while(True):
-    print("Choose a plant:")
-    print("1. Tree")
-    print("2. Shrub")
-    print("3. Flower")
-    print("4. Herb")
-    print("5. Succulent")
-    print("6. Vine")
-    print("7. Exit")
-    choice = input("Enter the number of your choice(1-7):  ")
+# SHELF OF KNOWLEDGE
 
+# guide: Soil
+soil_types = ["chalky", "clay", "loamy", "peaty", "sandy", "silty"]
+
+# guide: Pollinators (placeholder, can be edited later)
+pollinators = {
+    "Bee": {
+        "petal_color": ["Yellow", "Purple", "Blue"],
+        "scent": ["Sweet", "Floral"],
+    },
+    "Butterfly": {
+        "petal_color": ["Red", "Purple", "Orange"],
+        "scent": ["Sweet", "Fruity"],
+    },
+    "Hummingbird": {
+        "petal_color": ["Red", "Orange", "Pink"],
+        "scent": ["Mild", "Sweet"],
+    },
+    "Moth": {
+        "petal_color": ["White", "Pale Yellow", "Light Purple"],
+        "scent": ["Strong", "Night-blooming"],
+    },
+    "Bat": {
+        "petal_color": ["White", "Pale Green", "Purple"],
+        "scent": ["Strong", "Musky"],
+    },
+}
+
+
+# MENU
+while(True):
+    print("| Choose a plant:")
+    print("| 1. Tree    3. Flower   5. Succulent   7. Exit")
+    print("| 2. Shrub   4. Herb     6. Vine")
+    choice = input("Enter the number of your choice (1-7):  ")
+
+    # user choice Plant: Tree
     if choice == "1":
         name = input("Enter name of the plant: ").capitalize() + " Tree"
         species = "Tree"
         height = 0
         age = 0
         is_healthy = True
-        while(True):
+        
+        while(True):            
+            soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \n Select one to use: ").lower()
             
-            soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
             if soil_type == "sandy" or soil_type == "chalky":
                 print("Trees are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
-                print("Invalid choice, please select again")
+                print("We do not have that, please choose from the options available.")
             else:
                 break
-        watered = False
-        photosynthesized = False
-
-        plant = Tree(name, height, age, soil_type, watered, photosynthesized)
+        
+        is_watered = False
+        has_photosynthesized = False
+        
+        plant = Tree(name, height, age, soil_type, is_watered, has_photosynthesized)
+        
         while True:
-            print(f"MONTH {plant.age + 1}")
+            print(f"MONTH {age + 1}")
             print("Note: In order to bear fruit, must be at least 15 months old,")
             print("and it must have been watered and undergone photosynthesis.")
-            print("What do you want to do?")
-            print("1. Water the plant")
-            print("2. Photosynthesize")
-            print("3. Go to the next day")
-            print("4. Check for fruits")
+            print("\n| What do you want to do?")
+            print("| 1. Water the plant   3. Go to the next day")
+            print("| 2. Photosynthesize   4. Check for fruits")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
@@ -318,6 +357,7 @@ while(True):
                 plant.check_for_fruits()
                 input("Press enter to continue...")
 
+    # user choice Plant: Shrub
     elif choice == "2":
         name = input("Enter name of the plant: ").capitalize()
         species = "Shrub"
@@ -325,23 +365,24 @@ while(True):
         age = 0
         
         while(True):
-            soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
+            soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \nSelect one to use: ").lower()
+            
             if soil_type == "sandy" or soil_type == "chalky":
                 print("Shrubs are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
-                print("Invalid choice, please select again")
+                print("We do not have that, please choose from the options available.")
             else:
                 break
-        watered = False
-        photosynthesized = False
-        plant = Shrub(name, height, age, soil_type, watered, photosynthesized)
+        
+        is_watered = False
+        has_photosynthesized = False
+        plant = Shrub(name, height, age, soil_type, is_watered, has_photosynthesized)
+        
         while True:
-            print(f"MONTH {plant.age + 1}")
-            print("What do you want to do?")
-            print("1. Water the plant")
-            print("2. Photosynthesize")
-            print("3. Go to the next day")
-            print("4. Prune")
+            print(f"MONTH {plant.age}")
+            print("| What do you want to do?")
+            print("| 1. Water the plant   3. Go to the next day")
+            print("| 2. Photosynthesize   4. Prune")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
@@ -357,31 +398,38 @@ while(True):
                 plant.prune()
                 input("Press enter to continue...")
 
-
+    #3 user choice Plant: Flower
     elif choice == "3":
         name = input("Enter name of the plant: ")
         species = "Flower"
         height = 0
         age = 0
+        
         while(True):
-            soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
+            soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \n Select one to use: ").lower()
+            
             if soil_type == "clay" or soil_type == "chalky":
                 print("Flowers are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
-                print("Invalid choice, please select again")
+                print("We do not have that, please choose from the options available.")
             else:
                 break
+        
         is_healthy = True
         growth_rate = 5
         plant = Flower(name, soil_type)
-        Sub_Options(name, plant)
         
+        sub_options(name, plant)
+    
+    # user choice Plant: Herb
     elif choice == "4":
         name = input("Enter name of the plant: ")
         species = "Herb"
         height = 0
         age = 0
-        soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
+        
+        soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \n Select one to use: ").lower()
+        
         while(True):
             if soil_type == "sandy" or soil_type == "chalky" or soil_type == "peaty":
                 print("Herbs are not compatible with that soil, please select again.")
@@ -389,46 +437,60 @@ while(True):
                 print("Invalid choice, please select again")
             else:
                 break
+        
         is_healthy = True
         growth_rate = 7
         plant = Herb(name, soil_type)
-        Sub_Options(name, plant)
+        
+        sub_options(name, plant)
 
+    # user choice Plant: Succulent
     elif choice == "5":
         name = input("Enter name of the plant: ")
         species = "Succulent"
         height = 0
         age = 0
-        soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
+        
+        soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \n Select one to use: ").lower()
+        
         while(True):
             if soil_type == "clay" or soil_type == "peaty" or soil_type == "silty":
                 print("Trees are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
-                print("Invalid choice, please select again")
+                print("We do not have that, please choose from the options available.")
             else:
                 break
+        
         is_healthy = True
         growth_rate = 0.3
         plant = Succulent(name, soil_type)
-        Sub_Options(name, plant)
+        
+        sub_options(name, plant)
 
+    # user choice Plant: vine
     elif choice == "6":
         name = input("Enter name of the plant: ")
         species = "Vine"
         height = 0
         age = 0
-        soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
+        
+        soil_type = input("Soil available: Chalky, Clay, Loamy, Peaty, Sandy, Silty \n Select one to use: ").lower()
+        
         while(True):
             if soil_type == "chalky":
                 print("Trees are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
-                print("Invalid choice, please select again")
+                print("We do not have that, please choose from the options available.")
             else:
                 break
+            
         is_healthy = True
         growth_rate = 4
         plant = Vine(name, soil_type)
-        Sub_Options(name, plant)
+        
+        sub_options(name, plant)
+        
+    # EXIT
     elif choice == "7":
         print("Thank you for using the Plant Simulator!")
         break
