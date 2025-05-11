@@ -1,35 +1,32 @@
-# CS121 | Lab Activity 3 & 4
-## Test
+# **CS 121 - Advanced Computer Programming | Abstract Base Class**
 
-To write <ins>something</ins> in the console, do this: ```print ("hello world")```
-``` python
-    def watering(self):
-        pass
+Our team was assigned the abstract base class category: `Plant`!
+- Project title
+- Team members
+- Short description of the system
+- How to run the program
+- Acknowledgement
 
-    def photosynthesize(self):
-        pass
 
-    def grow(self):
-        pass
 
-    def lifespan(self):
-        pass
-```
+# **The System**
+
+## Class Diagram
+
+![Class Diagram for our project](diagram.png)
+
 
 ## **🧬 Properties**
 
-| Type   | Class | Properties |
-|--------|-------------|------------------------------------------------------------------------------|
-| parent | `Plant`  | `name`, `species`, `age`, `soil_type`, `growth_rate`,`height`|
-| child  | `Tree`     | `wood_type`, `is_fruit_bearing`, `can_drop_leaves`|
-| child  | `Shrub`    | `has_thorns`, `can_shed_leaves`|
-| child  | `Flower`   | `petal_type`, `petal_color`, `scent`, `has_nectar`|
-| child  | `Herb`     | `use_type`, `is_toxic`|
-| child  | `Succulent`| `leaf_shape`, `water_storage_type`, `is_storing_water`|
-| child  | `Vine`     | `thickness`, `spread_direction`|
-
-## Diagram
-![Class Diagram for our project](diagram.png)
+| **Type** | **Class**    | **Properties** |
+|---------:|:------------:|:------------------------------------------------------------------------------|
+| parent | **`Plant`**    | `name`, `species`, `age`, `soil_type`, `growth_rate`,`height`|
+| child  | **`Tree`**     | `wood_type`, `is_fruit_bearing`, `can_drop_leaves`|
+| child  | **`Shrub`**    | `has_thorns`, `can_shed_leaves`|
+| child  | **`Flower`**   | `petal_type`, `petal_color`, `scent`, `has_nectar`|
+| child  | **`Herb`**     | `use_type`, `is_toxic`|
+| child  | **`Succulent`**| `leaf_shape`, `water_storage_type`, `is_storing_water`|
+| child  | **`Vine`**     | `thickness`, `spread_direction`|
 
 
 ## **⚙️ Functions**
@@ -41,7 +38,7 @@ To write <ins>something</ins> in the console, do this: ```print ("hello world")`
     - photosynthesize()
     - check_lifespan() 
 
-- **🌳 Tree*
+- **🌳 Tree**
     - check_for_fruits()
     - shed_leaves() 
 
@@ -67,3 +64,29 @@ To write <ins>something</ins> in the console, do this: ```print ("hello world")`
     - crawl()
     - climb()
     - check_vine_spread()
+
+
+
+# Running the Program
+
+
+
+# Acknowledgment
+
+
+## Test
+
+To write <ins>something</ins> in the console, do this: ```print ("hello world")```
+``` python
+    def watering(self):
+        pass
+
+    def photosynthesize(self):
+        pass
+
+    def grow(self):
+        pass
+
+    def lifespan(self):
+        pass
+```
