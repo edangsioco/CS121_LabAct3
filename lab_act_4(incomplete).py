@@ -279,8 +279,7 @@ class Herb(Plant):
         self.choice_safety = choice_safety
         self.is_toxic = random.randint(1,5)
         
-        
-    def check_consumption_safety(self):
+    def check_consumption(self):
         if self.is_toxic == 1:
             self.is_toxic = True
             print(f"{self.name} is not safe to consume.")
@@ -314,7 +313,7 @@ class Herb(Plant):
         else:
             print(f"Uses so far: {use_type}\n.")
             
-        # Prompt the user for additional input
+        # additional input
         print("Here are the available uses:")
         for index, use in enumerate(herb_uses, 1):
             print(f"{index}. {use}")
@@ -331,8 +330,7 @@ class Herb(Plant):
             use_type.append(user_input)
 
         print(f"Selected uses: {use_type}")
-            
-
+        
     def harvest(self):
         if (age > 2
         and self.is_healthy
@@ -623,7 +621,7 @@ while(True):
                 plant.grow()
                 input("Press enter to continue...")
             if choice_herb == "4":
-                plant.check_consumption_safety()
+                plant.check_consumption()
                 input("Press enter to continue...")
             if choice_herb == "5":
                 plant.check_use()
