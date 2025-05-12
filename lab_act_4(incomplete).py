@@ -520,7 +520,32 @@ while(True):
                 break
         is_healthy = True
         growth_rate = 4
-        plant = Vine(name, soil_type)
+        plant = Vine(name, species, height, age, soil_type)
+        print(f"MONTH {plant.age}")
+        print("| What do you want to do?")
+        print("| 1. Water the plant          4. Check vine spread")
+        print("| 2. Photosynthesize          5. Climb")
+        print("| 3. Go to the next day       6. Crawl")
+
+        choice1 = input("Enter number of your choice: ")
+        if choice1 == "1":
+            plant.water()
+            input("Press enter to continue...")
+        elif choice1 == "2":
+            plant.photosynthesize()
+            input("Press enter to continue...")
+        elif choice1 == "3":
+            plant.grow()
+            input("Press enter to continue...")
+        elif choice1 == "4":
+            plant.check_vine_spread()
+            input("Press enter to continue...")
+        elif choice1 == "5":
+            plant.climb()
+            input("Press enter to continue...")
+        elif choice1 == "6":
+            plant.crawl()
+            input("Press enter to continue...")
 
     elif choice == "7":
         print("Thank you for using the Plant Simulator!")
