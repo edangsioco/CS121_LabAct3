@@ -44,6 +44,7 @@ class Plant(ABC):
     def has_photosynthesized(self, value):
         self._has_photosynthesized = value
 
+    @abstractmethod
     def grow(self):
         pass
 
