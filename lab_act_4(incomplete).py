@@ -2,7 +2,6 @@ from abc import ABC, abstractmethod
 import time
 import random
 
-
 # class: PARENT
 class Plant(ABC):
     def __init__(self, name, soil_type, age, height, growth_rate, is_watered, has_photosynthesized = False, is_healthy = True):
@@ -30,7 +29,6 @@ class Plant(ABC):
             print(f"{self.name} is converting sunlight into energy through photosynthesis.")
             self.has_photosynthesized = True
             
-    
     @property
     def is_watered(self):
         return self._is_watered
@@ -49,10 +47,6 @@ class Plant(ABC):
 
     def grow(self):
         pass
-
-    def check_lifespan(self):
-        pass
-        # wadodo?
 
 # class: CHILD (1)
 class Tree(Plant):
