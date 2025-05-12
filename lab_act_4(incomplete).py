@@ -4,7 +4,7 @@ import random
 
 # class: PARENT
 class Plant(ABC):
-    def __init__(self, name, soil_type, age, height, growth_rate, is_watered, has_photosynthesized = False, is_healthy = True):
+    def __init__(self, name, soil_type, age, height, growth_rate, is_watered, has_photosynthesized=False, is_healthy=True):
         self.name = name
         self.species = species
         self.soil_type = soil_type
