@@ -4,17 +4,12 @@ import random
 
 # class: PARENT
 class Plant(ABC):
-<<<<<<< HEAD
-    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized = False, is_healthy = True):
-=======
-    def __init__(self, name, soil_type, age, height, growth_rate, is_watered, has_photosynthesized=False, is_healthy=True):
->>>>>>> 0913ab53c4fea7b300521818ad9bc8f7b381594c
+    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy):
         self.name = name
         self.species = species
         self.soil_type = soil_type
         self.age = age
         self.height = height
-        self.growth_rate = growth_rate
         self.is_healthy = is_healthy
         self._is_watered = is_watered
         self._has_photosynthesized = has_photosynthesized
@@ -54,8 +49,8 @@ class Plant(ABC):
 
 # class: CHILD (1)
 class Tree(Plant):
-    def __init__(self, name, harvest, height, age, soil_type, growth_rate, can_drop_leaves=True, has_fruit = False):
-        super().__init__(name, age, soil_type, growth_rate, height, has_photosynthesized, is_watered, is_healthy=True)
+    def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, can_drop_leaves=True, has_fruit = False):
+        super().__init__(name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy)
         self.can_drop_leaves = can_drop_leaves
         if self.age <= 12:
             self.growth_rate = 100
@@ -63,9 +58,9 @@ class Tree(Plant):
             self.growth_rate = 60
         else:
             self.growth_rate = 30
-        self.harvest = harvest
         self.has_fruit = has_fruit
         self.last_fruit_month = 0
+        self.species = species
 
     def check_for_fruits(self):
         if (
@@ -111,10 +106,21 @@ class Tree(Plant):
         else:
             print(f"Please water the {self.name} first and let it photosynthesize...")
 
+    def exit(self):
+        print("\nPlant Information:")
+        print(f"Name: {self.name}")
+        print(f"Species: {self.species}")
+        print(f"Age: {self.age}")
+        print(f"Height: {self.height:.3f} cm")
+        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"Has Fruits: {'Yes' if self.has_fruit else 'No'}\n")
+        print(f"Thank you for playing! ^ _ ^")
+ 
+
 # class: CHILD (2)
 class Shrub(Plant):
-    def __init__(self, name, soil_type, height, age, choice2, choice3, can_shed_leaves=False, is_healthy=True):
-        super().__init__(name, age, soil_type, height, has_photosynthesized, is_watered)
+    def __init__(self, name, species, soil_type, height, age, has_photosynthesized, is_watered, is_healthy, can_shed_leaves=False):
+        super().__init__(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         self.can_shed_leaves = can_shed_leaves
         if self.age <= 6:
             self.growth_rate = 30
@@ -122,8 +128,6 @@ class Shrub(Plant):
             self.growth_rate = 10
         else:
             self.growth_rate = 30
-        self.choice2 = choice2
-        self.choice3 = choice3
         self.is_healthy = is_healthy
         self.num = random.randint(1,2)
         self.last_prune = 0
@@ -175,9 +179,9 @@ class Shrub(Plant):
             self.height += self.growth_rate
             self.has_photosynthesized = False
             self.is_watered = False
-            if self.can_drop_leaves == True:
+            if self.can_shed_leaves == True:
                 print(f"{self.name} is sheding leaves.")
-            self.can_drop_leaves = False
+            self.can_shed_leaves = False
             print(f"Entering month {self.age + 1}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
@@ -185,15 +189,24 @@ class Shrub(Plant):
                 print(f"The {self.name} needs pruning.")
                 self.is_healthy = False
         else:
-            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...")       
+            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...")  
+    def exit(self):
+        print("\nPlant Information:")
+        print(f"Name: {self.name}")
+        print(f"Species: {self.species}")
+        print(f"Age: {self.age}")
+        print(f"Height: {self.height:.3f} cm")
+        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
+        print(f"Thank you for playing! ^ _ ^")     
             
 # class: CHILD (3)
 class Flower(Plant):
-    def __init__(self, name, petal_color, soil_type, choice4, height, age, has_nectar=True, is_blooming = True):
-        super().__init__(name, soil_type, age,height, has_photosynthesized, is_watered, is_healthy=True)
+    def __init__(self, name, species, petal_color, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, has_nectar=True, is_blooming = True):
+        super().__init__(name, species, soil_type, age, height,  is_watered, has_photosynthesized, is_healthy)
         all_scents = ["Sweet", "Mild", "Fresh", "Strong", "Fruity", "Spicy"]
         self.scent = random.choice(all_scents)
         self.petal_color = petal_color
+        self.is_healthy = is_healthy
         self.pollinator = {
                 "bee": {
                     "colors": ["Blue", "Purple", "Violet", "White", "Yellow"],
@@ -221,7 +234,6 @@ class Flower(Plant):
             self.growth_rate = 8
         else:
             self.growth_rate = 3
-        self.choice4 = choice4
         
     def check_blooming(self):
         if self.age >= 10:
@@ -255,6 +267,7 @@ class Flower(Plant):
             print(f"No pollinator is attracted to the {self.petal_color} flower with a {self.scent} scent!")
             return False
         
+        
     def grow(self):
         if self.is_watered == True and self.has_photosynthesized == True:
             self.height += self.growth_rate
@@ -269,15 +282,29 @@ class Flower(Plant):
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
             print(f"Please water the {self.name} first and let it photosynthesize...")
+    def exit(self):
+        print("\nPlant Information:")
+        print(f"Name: {self.name}")
+        print(f"Species: {self.species}")
+        print(f"Age: {self.age}")
+        print(f"Height: {self.height:.3f} cm")
+        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"Has Bloomed: {'Yes' if self.is_blooming else 'No'}")
+        print(f"Has Attracted pollinators: {'Yes' if self.attracted_pollinators else 'No'}\n")
+        print(f"Thank you for playing! ^ _ ^")
 
 # class: CHILD (4)
 class Herb(Plant):
-    def __init__(self, name, soil_type, age, height, growth_rate, use_type, choice_safety, is_watered=False, has_photosynthesized=False, is_healthy=True,  is_toxic=False):
-        super().__init__(name, soil_type, age, height, growth_rate, is_watered, has_photosynthesized, is_healthy)
-        self.growth_rate = growth_rate
+    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, use_type = 0):
+        super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
         self.use_type = use_type
-        self.choice_safety = choice_safety
         self.is_toxic = random.randint(1,5)
+        if self.age <= 2:
+            self.growth_rate = 15
+        elif self.age > 3 and self.age <= 5:
+            self.growth_rate = 10
+        else:
+            self.growth_rate = 5
         
     def check_consumption(self):
         if self.is_toxic == 1:
@@ -329,7 +356,7 @@ class Herb(Plant):
             # custom input
             use_type.append(user_input)
 
-        print(f"Selected uses: {use_type}")
+        return f"Selected uses: {use_type}"
         
     def harvest(self):
         if (age > 2
@@ -346,33 +373,37 @@ class Herb(Plant):
     def grow(self):
         if self.is_watered == True and self.has_photosynthesized == True:
             # age herb
-            self.age += 1
-            
-            if self.age <= 1:
-                self.growth_rate = random.randint(1, 5)
-            elif self.age <= 2:
-                self.growth_rate = random.randint(1, 10)
-            elif self.age <= 3:
-                self.growth_rate = random.randint(1, 15)
-            else:
-                self.growth_rate = random.randint(1, 30)
-            
             self.height += self.growth_rate
+            self.age += 1
             self.has_photosynthesized = False
             self.is_watered = False
-            
             print(f"Entering month {self.age}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
             print(f"Please water the {self.name} first and let it photosynthesize...")
+    def exit(self):
+                print("\nPlant Information:")
+                print(f"Name: {self.name}")
+                print(f"Species: {self.species}")
+                print(f"Age: {self.age}")
+                print(f"Height: {self.height:.3f} cm")
+                print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
+                print(f"Is safe for consumption: {'Yes' if self.check_consumption else 'No'}")
+                print(f"Used for: {self.use_type}\n")
+                print(f"Thank you for playing! ^ _ ^")
 
 # class: CHILD (5)
 class Succulent(Plant):
-        def __init__(self, name, soil_type, height=0, age=0, is_watered=False,has_photosynthesized=False, is_healthy=True, growth_rate=0.3, is_storing_water=False):
-            super().__init__(name, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
-            self.is_storing_water = is_storing_water
-            self.growth_rate = growth_rate
+        def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, is_storing_water = False):
+            super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
+            if self.age <= 3:
+                self.growth_rate = 1
+            elif self.age > 3 and self.age <= 12:
+                self.growth_rate = 2
+            else:
+                self.growth_rate = 3
+                self.is_storing_water = is_storing_water
 
         def water(self):
             if self.is_watered:
@@ -382,8 +413,9 @@ class Succulent(Plant):
                 self.is_watered = True
                 self.is_storing_water = True
 
+
         def grow(self):
-            if self.has_photosynthesized:
+            if self.has_photosynthesized and self.is_watered:
                 if self.is_watered:
                     self.age+=1
                     self.height += self.growth_rate
@@ -414,27 +446,92 @@ class Succulent(Plant):
                 print(f"The {self.name} can survive the drought because it has water stored.")
             else:
                 print(f"{self.name} won't survive the drought.")
+        def exit(self):
+            print("\nPlant Information:")
+            print(f"Name: {self.name}")
+            print(f"Species: {self.species}")
+            print(f"Age: {self.age}")
+            print(f"Height: {self.height:.3f} cm")
+            print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
+            print(f"Has stored water: {'Yes' if self.is_storing_water else 'No'}\n")
+            print(f"Thank you for playing! ^ _ ^")
 
 # class: CHILD (6)
 class Vine(Plant):
-        def __init__(self, name, species, height, age, soil_type, growth_rate, thickness, spread_direction):
-            super().__init__(name, species, age, soil_type, growth_rate, height, is_healthy=True)
+        def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, height_vertical, height_horizontal, thickness, spread_direction_vertical = False, spread_direction_horizontal = False):
+            super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
             self.thickness = thickness
-            self.spread_direction = spread_direction
+            self.height_horizontal = height_horizontal
+            self.height_vertical = height_vertical
+            self.spread_direction_vertical = spread_direction_vertical
+            self.spread_direction_horizontal = spread_direction_horizontal
+            if self.age <= 3:
+                self.growth_rate = 3
+                self.thickness = 0.5
+            elif self.age > 3 and self.age <= 12:
+                self.growth_rate = 10
+                self.thickness = 1
+            else:
+                self.growth_rate = 30
+                self.thickness = 3
+                
 
         def crawl(self):
-            print(f"The vine {self.name} is now growing horizontally")
-            self.spread_direction = "Horizontally"
+            self.spread_direction_horizontal = True
+            if not self.spread_direction_vertical and self.spread_direction_horizontal:
+                print(f"The vine {self.name} is now growing horizontally")
+            elif self.spread_direction_vertical and self.spread_direction_horizontal:
+                print(f"The vine {self.name} is now growing horizontally and vertically")
+            
             
         def climb(self):
-            print(f"The vine {self.name} is now growing vertically")
-            self.spread_direction = "Vertically"
+            self.spread_direction_vertical = True
+            if self.spread_direction_vertical and not self.spread_direction_horizontal:
+                print(f"The vine {self.name} is now growing vertically")
+            elif self.spread_direction_vertical and self.spread_direction_horizontal:
+                print(f"The vine {self.name} is now growing vertically and horizontally")
             
         def check_vine_spread(self):
             if self.spread_direction == "Vertically" or self.spread_direction == "Horizontally":
                 print(f"{self.name} is now spreading {self.spread_direction} at the rate {self.growth_rate} per day and is currently {self.thickness} in diameter.")
             else:
                 print(f"{self.name} is now spreading at the rate {self.growth_rate} per day and is currently {self.thickness} in diameter.")
+
+        def grow(self):
+            if self.is_watered == True and self.has_photosynthesized == True:
+                if self.spread_direction_vertical and not self.spread_direction_horizontal:
+                    self.height_vertical += self.growth_rate 
+                elif not self.spread_direction_vertical and self.spread_direction_horizontal:
+                    self.height_horizontal += self.growth_rate 
+                elif (self.spread_direction_vertical and self.spread_direction_horizontal) or (not self.spread_direction_vertical and not self.spread_direction_horizontal):
+                    self.height_horizontal += self.growth_rate 
+                    self.height_vertical += self.growth_rate 
+                self.age += 1
+                self.has_photosynthesized = False
+                self.is_watered = False
+                print(f"Entering month {self.age}...")
+                time.sleep(4)
+                if not self.spread_direction_vertical and self.spread_direction_horizontal:
+                    print(f"{self.name} has grown horizontally by {self.growth_rate} cm. New horizontal height is {self.height_horizontal} cm, New vertical height is {self.height_vertical} cm, and current thickness is {self.thickness} cm.")
+                elif self.spread_direction_vertical and not self.spread_direction_horizontal:
+                    print(f"{self.name} has grown vertically by {self.growth_rate} cm. New vertical height is {self.height_vertical} cm, new horizontal height is {self.height_horizontal} cm, and current thickness is {self.thickness} cm.")
+                else:
+                    print(f"{self.name} has grown by {self.growth_rate} cm. New vertical height is {self.height_vertical} cm, new horizontal height is {self.height_horizontal} cm, and current thickness is {self.thickness} cm.")
+                self.spread_direction_vertical = False
+                self.spread_direction_horizontal = False
+            else:
+                print(f"Please water the {self.name} first and let it photosynthesize...")
+                
+        def exit(self):
+            print("\nPlant Information:")
+            print(f"Name: {self.name}")
+            print(f"Species: {self.species}")
+            print(f"Age: {self.age}")
+            print(f"Vertical height: {self.height_vertical:.3f} cm")
+            print(f"Horizontal height: {self.height_horizontal:.3f} cm")
+            print(f"Thickness: {self.thickness:.3f} cm")
+            print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
+            print(f"Thank you for playing! ^ _ ^")
 
 # MENU
 soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
@@ -463,29 +560,33 @@ while(True):
 
         is_watered = False
         has_photosynthesized = False
-
-        plant = Tree(name, height, age, soil_type, is_watered, has_photosynthesized)
+        species = "Tree"
+        plant = Tree(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         while True:
             print(f"MONTH {age + 1}")
             print("Note: In order to bear fruit, must be at least 15 months old,")
             print("and it must have been watered and undergone photosynthesis.")
             print("\n| What do you want to do?")
-            print("| 1. Water the plant   3. Go to the next day")
+            print("| 1. Water the plant   3. Go to the next month")
             print("| 2. Photosynthesize   4. Check for fruits")
+            print("| 5. Exit")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
                 plant.water()
                 input("Press enter to continue...")
-            if choice1 == "2":
+            elif choice1 == "2":
                 plant.photosynthesize()
                 input("Press enter to continue...")
-            if choice1 == "3":
+            elif choice1 == "3":
                 plant.grow()
                 input("Press enter to continue...")
-            if choice1 == "4":
+            elif choice1 == "4":
                 plant.check_for_fruits()
                 input("Press enter to continue...")
+            elif choice1 == "5":
+                plant.exit()
+                break
 
     # Plant: Shrub
     elif choice == "2":
@@ -501,34 +602,39 @@ while(True):
                 print("Invalid choice, please select again")
             else:
                 break
-
+        is_healthy = True
         is_watered = False
         has_photosynthesized = False
-        plant = Shrub(name, height, age, soil_type, is_watered, has_photosynthesized)
+        species = "Shrub"
+        plant = Shrub(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         while True:
             print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
-            print("| 1. Water the plant   3. Go to the next day")
+            print("| 1. Water the plant   3. Go to the next month")
             print("| 2. Photosynthesize   4. Prune")
+            print("| 5. Exit")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
                 plant.water()
                 input("Press enter to continue...")
-            if choice1 == "2":
+            elif choice1 == "2":
                 plant.photosynthesize()
                 input("Press enter to continue...")
-            if choice1 == "3":
+            elif choice1 == "3":
                 plant.grow()
                 input("Press enter to continue...")
-            if choice1 == "4":
+            elif choice1 == "4":
                 plant.prune()
                 input("Press enter to continue...")
+            elif choice1 == "5":
+                plant.exit()
+                break
 
     # Plant: Flower
     elif choice == "3":
         petal_colors = ["Red", "Orange", 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'White', 'Pink']
-        name = input("Enter name of the plant: ")
+        name = input("Enter name of the plant: ").capitalize()
         while(True):
             print("For the colors please choose here:" )
             print("Red, Orange, Yellow, Green, Blue, Indigo, Violet, White, Pink")
@@ -537,10 +643,8 @@ while(True):
                 print("Invalid choice, please select again")
             else:
                 break
-
         height = 0
         age = 0
-        
         while(True):
             soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
             if soil_type == "clay" or soil_type == "chalky":
@@ -552,42 +656,45 @@ while(True):
         is_healthy = True
         is_watered = False
         has_photosynthesized = False
-        plant = Flower(name, petal_color, soil_type, height, age, is_watered, has_photosynthesized)
+        species = "Flower"
+        plant = Flower(name, species, petal_color, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         while True:
             print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
-            print("| 1. Water the plant   3. Go to the next day")
+            print("| 1. Water the plant   3. Go to the next month")
             print("| 2. Photosynthesize   4. Check scent")
-            print("| 5. Attract pollinators")
+            print("| 5. Attract pollinators 6. Exit")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
                 plant.water()
                 input("Press enter to continue...")
-            if choice1 == "2":
+            elif choice1 == "2":
                 plant.photosynthesize()
                 input("Press enter to continue...")
-            if choice1 == "3":
+            elif choice1 == "3":
                 plant.grow()
                 input("Press enter to continue...")
-            if choice1 == "4":
+            elif choice1 == "4":
                 plant.check_fragrance()
                 input("Press enter to continue...")
-            if choice1 == "5":
+            elif choice1 == "5":
                 plant.attracted_pollinators()
                 input("Press enter to continue...")
+            elif choice1 == "6":
+                plant.exit()
+                break
         
     # Plant: Herb
     elif choice == "4":
-        name = input("Enter name of the plant: ")
+        name = input("Enter name of the plant: ").capitalize()
         age = 0
         height = 0
-        growth_rate = 1
         is_healthy = True
         is_watered = False
         has_photosynthesized = False
         use_type = 0
-        choice_safety= 0
+        species = "Herb"
         
         # pick soil
         soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
@@ -600,7 +707,7 @@ while(True):
                 break
         
         # existence of herb
-        plant = Herb(name, soil_type, age, height, growth_rate, choice_safety, is_watered, has_photosynthesized)
+        plant = Herb(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
         
         # care for herb
         while True:
@@ -608,34 +715,41 @@ while(True):
             print("| What do you want to do?")
             print("| 1. Water the plant     5. Check use")
             print("| 2. Photosynthesize     4. Check consumption safety")
-            print("| 3. Go to the next day  6. Harvest")
+            print("| 3. Go to the next month  6. Harvest")
+            print("| 7. Exit")
             
             choice_herb = input("Enter number of your choice: ")
             if choice_herb == "1":
                 plant.water()
                 input("Press enter to continue...")
-            if choice_herb == "2":
+            elif choice_herb == "2":
                 plant.photosynthesize()
                 input("Press enter to continue...")
-            if choice_herb == "3":
+            elif choice_herb == "3":
                 plant.grow()
                 input("Press enter to continue...")
-            if choice_herb == "4":
+            elif choice_herb == "4":
                 plant.check_consumption()
                 input("Press enter to continue...")
-            if choice_herb == "5":
+            elif choice_herb == "5":
                 plant.check_use()
                 input("Press enter to continue...")
-            if choice_herb == "6":
+            elif choice_herb == "6":
                 plant.harvest()
                 input("Press enter to continue...")
+            elif choice_herb == "7":
+                plant.exit()
+                break
 
     elif choice == "5":
         soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
-        name = input("Enter name of the plant: ")
+        name = input("Enter name of the plant: ").capitalize()
         species = "Succulent"
         height = 0
         age = 0
+        is_watered = False
+        has_photosynthesized = False
+        is_healthy = True
         while(True):
             soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
             if soil_type in ["clay", "peaty", "silty"]:
@@ -645,38 +759,40 @@ while(True):
             else:
                 break
 
-        plant = Succulent(name, soil_type)
+        plant = Succulent(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
         while True:
-            print(f"\nMONTH {plant.age + 1}")
+            print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
             print("| 1. Water the plant   3. Go to the next month")
             print("| 2. Photosynthesize   4. Check water storage")
             print("| 5. Check drought protection   6. Exit")
-            choice = input("Enter number of your choice: ")
-            if choice == "1":
+            choice1 = input("Enter number of your choice: ")
+            if choice1 == "1":
                 plant.water()
-            elif choice == "2":
+                input("Press enter to continue...")
+            elif choice1 == "2":
                 plant.photosynthesize()
-            elif choice == "3":
+                input("Press enter to continue...")
+            elif choice1 == "3":
                 plant.grow()
-            elif choice == "4":
+                input("Press enter to continue...")
+            elif choice1 == "4":
                 plant.check_water_storage()
-            elif choice == "5":
+                input("Press enter to continue...")
+            elif choice1 == "5":
                 plant.drought_protection()
-            elif choice == "6":
-                print("\nPlant Information:")
-                print(f"Name: {plant.name}")
-                print(f"Species: {plant.species}")
-                print(f"Age: {plant.age}")
-                print(f"Height: {plant.height:.3f} cm")
-                print(f"Health: {'Healthy' if plant.is_healthy else 'Unhealthy'}")
-                print(f"Has stored water: {'Yes' if plant.is_storing_water else 'No'}\n")
+                input("Press enter to continue...")
+            elif choice1 == "6":
+                plant.exit()
                 break
 
     elif choice == "6":
-        name = input("Enter name of the plant: ")
+        name = input("Enter name of the plant: ").capitalize()
         species = "Vine"
         height = 0
+        height_vertical = 0
+        height_horizontal = 0
+        thickness = 0
         age = 0
         soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
         while(True):
@@ -687,30 +803,35 @@ while(True):
             else:
                 break
         is_healthy = True
-        growth_rate = 4
-        plant = Vine(name, species, height, age, soil_type)
-        print(f"MONTH {plant.age}")
-        print("| What do you want to do?")
-        print("| 1. Water the plant          4. Climb")
-        print("| 2. Photosynthesize          5. Crawl")
-        print("| 3. Go to the next day")      
+        is_watered = False
+        has_photosynthesized = False
+        plant = Vine(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, height_vertical, height_horizontal, thickness)
+        while(True):
+            print(f"MONTH {plant.age}")
+            print("| What do you want to do?")
+            print("| 1. Water the plant          4. Climb")
+            print("| 2. Photosynthesize          5. Crawl")
+            print("| 3. Go to the next month     6. Exit")      
 
-        choice1 = input("Enter number of your choice: ")
-        if choice1 == "1":
-            plant.water()
-            input("Press enter to continue...")
-        elif choice1 == "2":
-            plant.photosynthesize()
-            input("Press enter to continue...")
-        elif choice1 == "3":
-            plant.grow()
-            input("Press enter to continue...")
-        elif choice1 == "4":
-            plant.climb()
-            input("Press enter to continue...")
-        elif choice1 == "5":
-            plant.crawl()
-            input("Press enter to continue...")
+            choice1 = input("Enter number of your choice: ")
+            if choice1 == "1":
+                plant.water()
+                input("Press enter to continue...")
+            elif choice1 == "2":
+                plant.photosynthesize()
+                input("Press enter to continue...")
+            elif choice1 == "3":
+                plant.grow()
+                input("Press enter to continue...")
+            elif choice1 == "4":
+                plant.climb()
+                input("Press enter to continue...")
+            elif choice1 == "5":
+                plant.crawl()
+                input("Press enter to continue...")
+            elif choice1 == "6":
+                plant.exit()
+                break
 
     elif choice == "7":
         print("Thank you for using the Plant Simulator!")
