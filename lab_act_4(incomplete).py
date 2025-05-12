@@ -536,6 +536,7 @@ class Vine(Plant):
 # MENU
 soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
 while(True):
+    print("| Welcome to the Plant Simulator |")
     print("| Choose a plant:")
     print("| 1. Tree    3. Flower   5. Succulent   7. Exit")
     print("| 2. Shrub   4. Herb     6. Vine")
