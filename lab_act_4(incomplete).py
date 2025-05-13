@@ -430,7 +430,7 @@ class Herb(Plant):
                 print(f"Height: {self.height:.3f} cm")
                 print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
                 print(f"Is safe for consumption: {'Yes' if self.check_consumption else 'No'}")
-                print(f"Used for: {self.use_type}\n")
+                print(f"Used for: {self.herb_use}\n")
                 print(f"Thank you for playing! ^ _ ^")
 
 
