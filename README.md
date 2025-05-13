@@ -1,4 +1,4 @@
-<h1 align="center"> # **🍃 Plant Simulator 🌿** </h1>
+<h1 align="center">🍃 Plant Simulator 🌿</h1>
 <p align="center"> Computer Science 121: Advanced Computer Programming | Abstract Base Class </p>
 
 <p align="center">
