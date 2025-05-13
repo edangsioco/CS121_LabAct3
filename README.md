@@ -37,7 +37,7 @@ Each subclass represents a type of plant with its own unique attributes and beha
 </p>
 
  
-![Class Diagram for our project]()
+![Class Diagram for our project](diagram.png)
 
 
 ‎ 
