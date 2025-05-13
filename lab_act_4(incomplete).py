@@ -2,7 +2,8 @@ from abc import ABC, abstractmethod
 import time
 import random
 
-# class: PARENT
+
+# class: parent
 class Plant(ABC):
     def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy):
         self.name = name
@@ -48,9 +49,14 @@ class Plant(ABC):
     def grow(self):
         pass
 
-# class: CHILD (1)
+    @abstractmethod
+    def exit(self):
+        pass
+
+
+# class: child (1/6)
 class Tree(Plant):
-    def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, can_drop_leaves=True, has_fruit = False):
+    def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, can_drop_leaves=True, has_fruit=False):
         super().__init__(name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy)
         self.can_drop_leaves = can_drop_leaves
         if self.age <= 12:
@@ -86,7 +92,7 @@ class Tree(Plant):
         else:
             print(f"{self.name} is not ready to produce fruits.")
 
-    def shed_leaves(self):
+    def drop_leaves(self):
         if self.age > 15 and self.age % 6 == 0:
             self.can_drop_leaves = True
         else:
@@ -118,14 +124,14 @@ class Tree(Plant):
         print(f"Thank you for playing! ^ _ ^")
  
 
-# class: CHILD (2)
+# class: child (2/6)
 class Shrub(Plant):
     def __init__(self, name, species, soil_type, height, age, has_photosynthesized, is_watered, is_healthy, can_shed_leaves=False):
         super().__init__(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         self.can_shed_leaves = can_shed_leaves
         if self.age <= 6:
             self.growth_rate = 30
-        elif self.age > 7 and self.age <= 18:
+        elif 7 <= self.age <= 18:
             self.growth_rate = 10
         else:
             self.growth_rate = 30
@@ -190,7 +196,8 @@ class Shrub(Plant):
                 print(f"The {self.name} needs pruning.")
                 self.is_healthy = False
         else:
-            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...")  
+            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...") 
+            
     def exit(self):
         print("\nPlant Information:")
         print(f"Name: {self.name}")
@@ -200,9 +207,9 @@ class Shrub(Plant):
         print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
         print(f"Thank you for playing! ^ _ ^")     
             
-# class: CHILD (3)
+# class: child (3/6)
 class Flower(Plant):
-    def __init__(self, name, species, petal_color, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, has_nectar=True, is_blooming = True):
+    def __init__(self, name, species, petal_color, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, has_nectar=True, is_blooming=True):
         super().__init__(name, species, soil_type, age, height,  is_watered, has_photosynthesized, is_healthy)
         all_scents = ["Sweet", "Mild", "Fresh", "Strong", "Fruity", "Spicy"]
         self.scent = random.choice(all_scents)
@@ -283,6 +290,7 @@ class Flower(Plant):
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
             print(f"Please water the {self.name} first and let it photosynthesize...")
+            
     def exit(self):
         print("\nPlant Information:")
         print(f"Name: {self.name}")
@@ -294,15 +302,15 @@ class Flower(Plant):
         print(f"Has Attracted pollinators: {'Yes' if self.attracted_pollinators else 'No'}\n")
         print(f"Thank you for playing! ^ _ ^")
 
-# class: CHILD (4)
+# class: child (4/6)
 class Herb(Plant):
-    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, use_type = 0):
+    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, use_type=0):
         super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
         self.use_type = use_type
         self.is_toxic = random.randint(1,5)
         if self.age <= 2:
             self.growth_rate = 15
-        elif self.age > 3 and self.age <= 5:
+        elif 3 < self.age <= 5:
             self.growth_rate = 10
         else:
             self.growth_rate = 5
@@ -383,6 +391,7 @@ class Herb(Plant):
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
             print(f"Please water the {self.name} first and let it photosynthesize...")
+            
     def exit(self):
                 print("\nPlant Information:")
                 print(f"Name: {self.name}")
@@ -394,9 +403,10 @@ class Herb(Plant):
                 print(f"Used for: {self.use_type}\n")
                 print(f"Thank you for playing! ^ _ ^")
 
-# class: CHILD (5)
+
+# class: child (5/6)
 class Succulent(Plant):
-        def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, is_storing_water = False):
+        def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, is_storing_water=False):
             super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
             if self.age <= 3:
                 self.growth_rate = 1
@@ -447,6 +457,7 @@ class Succulent(Plant):
                 print(f"The {self.name} can survive the drought because it has water stored.")
             else:
                 print(f"{self.name} won't survive the drought.")
+                
         def exit(self):
             print("\nPlant Information:")
             print(f"Name: {self.name}")
@@ -457,9 +468,10 @@ class Succulent(Plant):
             print(f"Has stored water: {'Yes' if self.is_storing_water else 'No'}\n")
             print(f"Thank you for playing! ^ _ ^")
 
-# class: CHILD (6)
+
+# class: child (6/6)
 class Vine(Plant):
-        def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, height_vertical, height_horizontal, thickness, spread_direction_vertical = False, spread_direction_horizontal = False):
+        def __init__(self, name, species, soil_type, age, height, has_photosynthesized, is_watered, is_healthy, height_vertical, height_horizontal, thickness, spread_direction_vertical=False, spread_direction_horizontal=False):
             super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
             self.thickness = thickness
             self.height_horizontal = height_horizontal
@@ -476,14 +488,12 @@ class Vine(Plant):
                 self.growth_rate = 30
                 self.thickness = 3
                 
-
         def crawl(self):
             self.spread_direction_horizontal = True
             if not self.spread_direction_vertical and self.spread_direction_horizontal:
                 print(f"The vine {self.name} is now growing horizontally")
             elif self.spread_direction_vertical and self.spread_direction_horizontal:
                 print(f"The vine {self.name} is now growing horizontally and vertically")
-            
             
         def climb(self):
             self.spread_direction_vertical = True
@@ -569,9 +579,9 @@ while(True):
             print("Note: In order to bear fruit, must be at least 15 months old,")
             print("and it must have been watered and undergone photosynthesis.")
             print("\n| What do you want to do?")
-            print("| 1. Water the plant   3. Go to the next month")
-            print("| 2. Photosynthesize   4. Check for fruits")
-            print("| 5. Exit")
+            print("| 1. Water the plant         4. Check for fruits")
+            print("| 2. Photosynthesize         5.  ")
+            print("| 3. Go to the next month    6. Exit")
 
             choice1 = input("Enter number of your choice: ")
             if choice1 == "1":
