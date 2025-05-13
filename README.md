@@ -32,18 +32,19 @@ Each subclass represents a type of plant with its own unique attributes and beha
 
 ![Class Diagram for our project](diagram.png)
 
+
 ‎ 
 ## 🧬 **Properties**
 
 | **Type** |  **Class**  | **Properties**                                                 |
 | :------: | :---------: | :------------------------------------------------------------- |
-|  Parent  |   `Plant`   | `name`, `species`, `age`, `soil_type`, `growth_rate`, `height` |
-|   Child  |    `Tree`   | `wood_type`, `is_fruit_bearing`, `can_drop_leaves`             |
-|   Child  |   `Shrub`   | `has_thorns`, `can_shed_leaves`                                |
-|   Child  |   `Flower`  | `petal_type`, `petal_color`, `scent`, `has_nectar`             |
-|   Child  |    `Herb`   | `use_type`, `is_toxic`                                         |
-|   Child  | `Succulent` | `leaf_shape`, `water_storage_type`, `is_storing_water`         |
-|   Child  |    `Vine`   | `thickness`, `spread_direction`                                |
+|  Parent  |   `Plant`   | `name`, `age`, `species`, `soil_type`, `growth_rate`, `height`, `is_healthy`, `is_watered`, `has_photosynthesized` |
+|   Child  |    `Tree`   | `can_drop_leaves`, `has_fruit` |
+|   Child  |   `Shrub`   | `can_shed_leaves`, `has_thorns` |
+|   Child  |   `Flower`  | `petal_color`, `scent`, `has_nectar`, `is_blooming`, `pollinator` |
+|   Child  |    `Herb`   | `herb_use`, `is_toxic` |
+|   Child  | `Succulent` | `has_thorns`, `water_storage_type` |
+|   Child  |    `Vine`   | `thickness`, `spread_direction_vertical`, `spread_direction_horizontal` |
 
 ‎ 
 ## ⚙️ **Methods**
@@ -54,30 +55,30 @@ These methods reflect typical behaviors or actions of each plant type.
 ### **🌾 `Plant` (Abstract Base Class)**
 * __init__()
 * water()
-* grow()
 * photosynthesize()
-* check_lifespan()
+* grow()
+* exit()
 
 ### **🌲 `Tree`**
 * check_for_fruits()
-* shed_leaves()
+* drop_leaves()
 
 ### **🌳 `Shrub`**
 * prune()
 * shed_leaves()
 
 ### **🌷 `Flower`**
-* is_blooming()
+* check_blooming()
 * check_fragrance()
 * attracted_pollinators()
 
 ### **🌿 `Herb`**
-* check_safety()
+* check_consumption()
+* check_use
 * harvest()
 
 ### **🌱 `Succulent`**
 * check_water_storage()
-* store_water()
 * drought_protection()
 
 ### **🎋 `Vine`**
