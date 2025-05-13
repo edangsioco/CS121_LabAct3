@@ -1,17 +1,15 @@
-# 🌿 **Plant**
+# 🌿 **Plant Simulator**
 
 ## 🔖 Project Overview
-
 Our team was assigned the abstract base class **`Plant`** as part of our exploration of inheritance and abstraction in Python.
 
-* **Project Title**: *Plant Simulator*
 * **Team Members**:
     * *Abrigo, John Nathaniel*
     * *Angsioco, Edrian*
     * *Atienza, Dhanreigh*
     * *Calabia, Geanne Margaret*
 
----
+
 
 ## 🌱 **The System**
 
@@ -21,7 +19,7 @@ Our team was assigned the abstract base class **`Plant`** as part of our explora
 
 This diagram illustrates the relationship between the abstract base class `Plant` and its various subclasses. Each subclass represents a type of plant with its own unique attributes and behaviors.
 
----
+
 
 ## 🧬 **Properties**
 
@@ -35,7 +33,7 @@ This diagram illustrates the relationship between the abstract base class `Plant
 |   Child  | `Succulent` | `leaf_shape`, `water_storage_type`, `is_storing_water`         |
 |   Child  |    `Vine`   | `thickness`, `spread_direction`                                |
 
----
+
 
 ## ⚙️ **Methods**
 
@@ -82,19 +80,18 @@ Below are the functions defined per class. These methods reflect typical behavio
 * `climb()`
 * `check_vine_spread()`
 
----
 
 ## 💻 Running the Program
 
 To run the program, ensure your Python environment is set up, then execute the main script. Each plant type can be instantiated and interacted with using the provided methods.
 
----
+
 
 ## 🙌 Acknowledgment
 
 We would like to thank our instructor and classmates for the collaborative learning environment that helped make this project possible.
 
----
+
 
 ##  Code Sample
 
