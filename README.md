@@ -117,6 +117,7 @@ Each subclass represents a type of plant with its own unique attributes and beha
   <img src="https://64.media.tumblr.com/b24bb7086049debe86ccb94762a7d264/5784a6cb587e4fe8-ac/s1280x1920/18284d55366b80010515a2eaf76209a3f93eb845.gifv" alt="oogie boogie woogie~" width="1000">
 </p>
 
+<!----
 #  Code Sample
 
 To display output in the console, use:
@@ -141,3 +142,4 @@ def lifespan(self):
     pass
 ```
 
+---->
