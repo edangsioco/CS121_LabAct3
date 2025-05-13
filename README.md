@@ -1,8 +1,12 @@
-# **🍀 Plant Simulator**
-**Computer Science 121:** Advanced Computer Programming | Abstract Base Class
+<h1 align="center"> # **🍃 Plant Simulator 🌿** </h1>
+<p align="center"> Computer Science 121: Advanced Computer Programming | Abstract Base Class </p>
+
+<p align="center">
+    <img src="https://64.media.tumblr.com/5d2d839cd70bc3db2fa9acddb9cedd92/tumblr_nbpotrjgO11qi4ibzo1_500.gifv" alt=boogie oogiw woogie~">
+</p>
 
 ‎ 
-## **🔖 Project Overview**
+# **🔖 Project Overview**
 Our team was assigned the abstract base class **`Plant`** as part of our exploration of inheritance and abstraction in Python.
 
 ‎ 
@@ -83,6 +87,15 @@ Each plant type can be instantiated and interacted with using the provided metho
 ‎ 
 # 🙌 Acknowledgment
 We would like to thank our instructor for the collaborative learning environment that helped make this project possible.
+
+### GIFs
+<div align="left">
+  <img src="https://img.icons8.com/ios-filled/24/000000/tumblr.png" alt="Tumblr" style="vertical-align:middle; margin-right: 10px;">
+  <a href="https://www.tumblr.com/undergroundpixel?source=share" target="_blank" style="text-decoration:none; color:inherit;">
+    @undergroundpixel on Tumblr
+  </a>
+</div>
+
 
 ‎ 
 #  Code Sample
