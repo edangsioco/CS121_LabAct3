@@ -236,7 +236,8 @@ class Shrub(Plant):
         print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
         print(f"Has thorns: {self.has_thorns}\n")
         print(f"Thank you for playing! ^ _ ^")    
-            
+
+
 # class: child (3/6)
 class Flower(Plant):
     def __init__(self, name, species, petal_color, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, has_nectar=True, is_blooming=True):
@@ -305,7 +306,6 @@ class Flower(Plant):
             print(f"No pollinator is attracted to the {self.petal_color} flower with a {self.scent} scent!")
             return False
         
-        
     def grow(self):
         if self.is_watered == True and self.has_photosynthesized == True:
             self.height += self.growth_rate
@@ -331,6 +331,7 @@ class Flower(Plant):
         print(f"Has Bloomed: {'Yes' if self.is_blooming else 'No'}")
         print(f"Has Attracted pollinators: {'Yes' if self.attracted_pollinators else 'No'}\n")
         print(f"Thank you for playing! ^ _ ^")
+
 
 # class: child (4/6)
 class Herb(Plant):
@@ -453,7 +454,6 @@ class Succulent(Plant):
                 print(f"{self.name} has been watered and is storing water.")
                 self.is_watered = True
                 self.is_storing_water = True
-
 
         def grow(self):
             if self.has_photosynthesized and self.is_watered:
@@ -578,6 +578,8 @@ class Vine(Plant):
             print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
             print(f"Thank you for playing! ^ _ ^")
 
+########################################################################################################################################
+
 # MENU
 soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
 while(True):
@@ -587,6 +589,7 @@ while(True):
     print("| 2. Shrub   4. Herb     6. Vine")
     choice = input("Enter the number of your choice (1-7):  ")
 
+    
     # Plant: Tree
     if choice == "1":
         name = input("Enter name of the plant: ").capitalize() + " Tree"
@@ -634,6 +637,7 @@ while(True):
                 plant.exit()
                 break
 
+    
     # Plant: Shrub
     elif choice == "2":
         name = input("Enter name of the plant: ").capitalize() + " Shrub"
@@ -690,6 +694,7 @@ while(True):
                 plant.exit()
                 break
 
+    
     # Plant: Flower
     elif choice == "3":
         petal_colors = ["Red", "Orange", 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'White', 'Pink']
@@ -743,7 +748,8 @@ while(True):
             elif choice1 == "6":
                 plant.exit()
                 break
-        
+
+    
     # Plant: Herb
     elif choice == "4":
         name = input("Enter name of the plant: ").capitalize()
@@ -800,6 +806,8 @@ while(True):
                 plant.exit()
                 break
 
+    
+    # Plant: Succulent
     elif choice == "5":
         soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
         name = input("Enter name of the plant: ").capitalize()
@@ -845,6 +853,8 @@ while(True):
                 plant.exit()
                 break
 
+    
+    # Plant: Vine
     elif choice == "6":
         name = input("Enter name of the plant: ").capitalize()
         species = "Vine"
@@ -892,6 +902,8 @@ while(True):
                 plant.exit()
                 break
 
+    
+    # exit
     elif choice == "7":
         print("Thank you for using the Plant Simulator!")
         break
