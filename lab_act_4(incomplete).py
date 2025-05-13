@@ -334,9 +334,9 @@ class Flower(Plant):
 
 # class: child (4/6)
 class Herb(Plant):
-    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, use_type=0):
+    def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, herb_use=""):
         super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
-        self.use_type = use_type
+        self.herb_use = herb_use
         self.is_toxic = random.randint(1,5)
         if self.age <= 2:
             self.growth_rate = 15
@@ -394,8 +394,8 @@ class Herb(Plant):
         else:
             # custom input
             use_type.append(user_input)
-
-        return f"Selected uses: {use_type}"
+        self.herb_use = "".join(use_type)
+        print(f"Selected uses: {use_type}")
         
     def harvest(self):
         if (age > 2
