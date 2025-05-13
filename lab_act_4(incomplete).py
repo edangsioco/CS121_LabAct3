@@ -68,8 +68,15 @@ class Tree(Plant):
         self.has_fruit = has_fruit
         self.last_fruit_month = 0
         self.species = species
+        
+    def drop_leaves(self):
+        if self.age > 15 and self.age % 6 == 0:
+            self.can_drop_leaves = True
+        else:
+            self.can_drop_leaves = False
 
     def check_for_fruits(self):
+        self.drop_leaves()
         if (
         self.age >= 15
         and self.is_watered
@@ -105,7 +112,7 @@ class Tree(Plant):
             self.has_photosynthesized = False
             self.is_watered = False
             if self.can_drop_leaves == True:
-                print(f"{self.name} is sheding leaves.")
+                print(f"{self.name} is dropping leaves.")
             self.can_drop_leaves = False
             print(f"Entering month {self.age + 1}...")
             time.sleep(4)
@@ -126,7 +133,7 @@ class Tree(Plant):
 
 # class: child (2/6)
 class Shrub(Plant):
-    def __init__(self, name, species, soil_type, height, age, has_photosynthesized, is_watered, is_healthy, can_shed_leaves=False):
+    def __init__(self, name, species, soil_type, height, age, has_photosynthesized, is_watered, is_healthy, has_thorns, is_wounded=False, can_shed_leaves=False):
         super().__init__(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
         self.can_shed_leaves = can_shed_leaves
         if self.age <= 6:
@@ -138,12 +145,30 @@ class Shrub(Plant):
         self.is_healthy = is_healthy
         self.num = random.randint(1,2)
         self.last_prune = 0
-
+        self.is_wounded = is_wounded
+        
+    def _has_thorns(self):
+        if self.has_thorns:
+            wounded = random.randint(1,2)
+            if wounded == 2:
+                self.is_wounded = True
+            else:
+                self.is_wounded = False
+                
+    def shed_leaves(self):
+        if self.age >= 12 and self.age % 6 == 0:
+            self.can_shed_leaves = True
+        else:
+            self.can_shed_leaves = False
+                
     def prune(self):
-        if (not self.can_shed_leaves
+        self.shed_leaves()
+        if (self.can_shed_leaves
             and not self.is_healthy
-            and self.age - self.last_prune >= 3
+            and self.age - self.last_prune >= 0
             ):
+            if self.has_thorns:
+                print("Please be careful, the shrub has thorns.")
             choice2 = input(f"{self.name} is currently prunable. Proceed(y/n)?")
             if choice2 == "y":
                 print("Currently pruning...")
@@ -151,13 +176,19 @@ class Shrub(Plant):
                 print("removing the branch...")
                 time.sleep(2)
                 print(f"Pruning complete, the {self.name} is now healthy.")
+                self._has_thorns()
+                if self.is_wounded:
+                    print(f"You have been wounded by the thorns, please be careful next time!")
+                self.is_wounded = False
                 self.is_healthy = True
                 self.last_prune = self.age
 
-        elif (self.can_shed_leaves == False
-              and self.is_healthy == True
+        elif (not self.can_shed_leaves
+              and self.is_healthy
               and self.age - self.last_prune >= 1
               ):
+            if self.has_thorns:
+                print("Please be careful, the shrub has thorns.")
             choice3 = input("Plant is currently healthy. Pruning would only cause harm. Continue(y/n)?")
             if choice3 == "y":
                 print("Currently pruning...")
@@ -170,15 +201,13 @@ class Shrub(Plant):
                 else:
                     print(f"Pruning complete. The pruning has made the {self.name} unhealthy")
                     self.is_healthy = False
+                self._has_thorns()
+                if self.is_wounded:
+                    print(f"You have been wounded by the thorns. Please be careful next time!")
+                self.is_wounded = False
                 self.last_prune = self.age
         else:
             print(f"{self.name} cannot be pruned for now.")
-
-    def shed_leaves(self):
-        if self.age >= 12 and self.age % 6 == 0:
-            self.can_shed_leaves = True
-        else:
-            self.can_shed_leaves = False
 
     def grow(self):
         if self.is_watered == True and self.has_photosynthesized == True and self.is_healthy == True:
@@ -188,7 +217,7 @@ class Shrub(Plant):
             self.is_watered = False
             if self.can_shed_leaves == True:
                 print(f"{self.name} is sheding leaves.")
-            self.can_shed_leaves = False
+            self.can_drop_leaves = False
             print(f"Entering month {self.age + 1}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
@@ -204,8 +233,9 @@ class Shrub(Plant):
         print(f"Species: {self.species}")
         print(f"Age: {self.age}")
         print(f"Height: {self.height:.3f} cm")
-        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
-        print(f"Thank you for playing! ^ _ ^")     
+        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"Has thorns: {self.has_thorns}\n")
+        print(f"Thank you for playing! ^ _ ^")    
             
 # class: child (3/6)
 class Flower(Plant):
@@ -432,6 +462,8 @@ class Succulent(Plant):
                     self.height += self.growth_rate
                     self.is_watered = False
                     self.has_photosynthesized = False
+                    print(f"Entering month {self.age}...")
+                    time.sleep(4)
                     print(f"{self.name} has grown by {self.growth_rate}cm using fresh water. ")
                     print(f"New height is {self.height:.3f} cm.")
                 elif self.is_storing_water:
@@ -439,6 +471,8 @@ class Succulent(Plant):
                     self.height += self.growth_rate
                     self.is_storing_water = False
                     self.has_photosynthesized = False
+                    print(f"Entering month {self.age}...")
+                    time.sleep(4)
                     print(f"{self.name} has grown by {self.growth_rate} cm using stored water.")
                     print(f"New height is {self.height:.3f} cm.")
                 else:
@@ -602,10 +636,10 @@ while(True):
 
     # Plant: Shrub
     elif choice == "2":
-        name = input("Enter name of the plant: ").capitalize()
+        name = input("Enter name of the plant: ").capitalize() + " Shrub"
         height = 0
         age = 0
-        
+
         while(True):
             soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
             if soil_type == "sandy" or soil_type == "chalky":
@@ -614,11 +648,24 @@ while(True):
                 print("Invalid choice, please select again")
             else:
                 break
+        while(True):
+            choice_thorns = input("Would you like the shrub to have thorns(y/n)? ").lower()
+            if choice_thorns == 'y':
+                has_thorns = True
+                print(f"The {name} is going to contain thorns.")
+                break
+            elif choice_thorns == 'n':
+                has_thorns = False
+                print(f"The {name} is not going to contain thorns.")
+                break
+            else:
+                print("Invalid choice, please select again")
+                
         is_healthy = True
         is_watered = False
         has_photosynthesized = False
         species = "Shrub"
-        plant = Shrub(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy)
+        plant = Shrub(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy, has thorns)
         while True:
             print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
