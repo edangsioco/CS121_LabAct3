@@ -53,7 +53,7 @@ Each subclass represents a type of plant with its own unique attributes and beha
 |   `Shrub`   | `can_shed_leaves`, `has_thorns` |
 |   `Flower`  | `petal_color`, `scent`, `has_nectar`, `is_blooming`, `pollinator` |
 |    `Herb`   | `herb_use`, `is_toxic` |
-| `Succulent` | ` is_storing_water`, `water_storage_type` |
+| `Succulent` | `is_storing_water`, `water_storage_type` |
 |    `Vine`   | `thickness`, `spread_direction_vertical`, `spread_direction_horizontal` |
 
 ‎ 
