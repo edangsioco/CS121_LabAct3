@@ -437,8 +437,12 @@ class Herb(Plant):
 
 # class: child (5/6)
 class Succulent(Plant):
-        def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, is_storing_water=False):
+        def __init__(self, name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, water_storage_type, is_storing_water=False):
             super().__init__(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
+            valid_storage_types = ["leaves", "stems", "roots"]
+            if water_storage_type not in valid_storage_types:
+                print(f"Invalid water storage type: {water_storage_type}. It must be one of {valid_storage_types}")
+            self.water_storage_type = water_storage_type
             if self.age <= 3:
                 self.growth_rate = 1
             elif self.age > 3 and self.age <= 12:
@@ -449,46 +453,45 @@ class Succulent(Plant):
 
         def water(self):
             if self.is_watered:
-                print(f"{self.name} has already been water this month.")
+                print(f"{self.name} has already been watered this month.")
             else:
-                print(f"{self.name} has been watered and is storing water.")
+                print(f"{self.name} has been watered and is storing water in {self.water_storage_type}.")
                 self.is_watered = True
                 self.is_storing_water = True
 
         def grow(self):
-            if self.has_photosynthesized and self.is_watered:
-                if self.is_watered:
-                    self.age+=1
-                    self.height += self.growth_rate
-                    self.is_watered = False
-                    self.has_photosynthesized = False
-                    print(f"Entering month {self.age}...")
-                    time.sleep(4)
-                    print(f"{self.name} has grown by {self.growth_rate}cm using fresh water. ")
-                    print(f"New height is {self.height:.3f} cm.")
-                elif self.is_storing_water:
-                    self.age +=1
-                    self.height += self.growth_rate
-                    self.is_storing_water = False
-                    self.has_photosynthesized = False
-                    print(f"Entering month {self.age}...")
-                    time.sleep(4)
-                    print(f"{self.name} has grown by {self.growth_rate} cm using stored water.")
-                    print(f"New height is {self.height:.3f} cm.")
-                else:
-                    print(f"{self.name} needs water to grow.")
-            else:
+            if not self.has_photosynthesized:
                 print(f"{self.name} needs to photosynthesize to grow.")
+            elif self.is_watered:
+                self.age+=1
+                self.height += self.growth_rate
+                self.is_watered = False
+                self.has_photosynthesized = False
+                print(f"Entering month {self.age}...")
+                time.sleep(4)
+                print(f"{self.name} has grown by {self.growth_rate}cm using fresh water. ")
+                print(f"New height is {self.height:.3f} cm.")
+            elif self.is_storing_water:
+                self.age +=1
+                self.height += self.growth_rate
+                self.is_storing_water = False
+                self.has_photosynthesized = False
+                print(f"Entering month {self.age}...")
+                time.sleep(4)
+                print(f"{self.name} has grown by {self.growth_rate} cm using stored water from its {self.water_storage_type}.")
+                print(f"New height is {self.height:.3f} cm.")
+            else:
+                print(f"{self.name} needs water to grow.")
 
         def check_water_storage(self):
             if self.is_storing_water == True:
-                print(f"The {self.name} has water stored.")
+                print(f"The {self.name} has water stored in its {self.water_storage_type}.")
             else:
                 print(f"The {self.name} could use a drink.")
 
         def drought_protection(self):
             if self.is_storing_water == True:
-                print(f"The {self.name} can survive the drought because it has water stored.")
+                print(f"The {self.name} can survive the drought because it has water stored in its {self.water_storage_type}.")
             else:
                 print(f"{self.name} won't survive the drought.")
                 
@@ -498,6 +501,7 @@ class Succulent(Plant):
             print(f"Species: {self.species}")
             print(f"Age: {self.age}")
             print(f"Height: {self.height:.3f} cm")
+            print(f"Water Storage Type: {self.water_storage_type}")
             print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
             print(f"Has stored water: {'Yes' if self.is_storing_water else 'No'}\n")
             print(f"Thank you for playing! ^ _ ^")
@@ -669,7 +673,7 @@ while(True):
         is_watered = False
         has_photosynthesized = False
         species = "Shrub"
-        plant = Shrub(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy, has thorns)
+        plant = Shrub(name, species, soil_type, height, age, is_watered, has_photosynthesized, is_healthy, has_thorns)
         while True:
             print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
@@ -820,13 +824,18 @@ while(True):
         while(True):
             soil_type = input("Enter soil type: (Sandy, Clay, Silty, Loamy, Peaty, Chalky): ").lower()
             if soil_type in ["clay", "peaty", "silty"]:
-                print("Trees are not compatible with that soil, please select again.")
+                print("Succulents are not compatible with that soil, please select again.")
             elif soil_type not in soil_types:
                 print("Invalid choice, please select again")
             else:
                 break
 
-        plant = Succulent(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy)
+        storage_type = input("Enter the storage type (leaves, stems, roots): ").lower()
+        while storage_type not in ["leaves", "stems", "roots"]:
+            print(f"Invalid storage type. Please choose leave, stems, or roots.")
+            storage_type = input("Enter the storage type: ").lower()
+
+        plant = Succulent(name, species, soil_type, age, height, is_watered, has_photosynthesized, is_healthy, water_storage_type=storage_type)
         while True:
             print(f"\nMONTH {plant.age}")
             print("| What do you want to do?")
