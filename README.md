@@ -7,10 +7,11 @@
 
 ‎ 
 # **🔖 Project Overview**
-Our team was assigned the abstract base class **`Plant`** as part of our exploration of inheritance and abstraction in Python.
+<p align="justify">‎‎‎ ‎ ‎ ‎ A Plant Life Simulation System, built with Python and adhering to Object-Oriented Programming (OOP) principles, facilitates the simulation and interaction with various plant types. This includes trees, shrubs, flowers, and herbs, each endowed with distinct behaviors and attributes. The project's core objective is to provide an interactive platform for teaching and demonstrating fundamental OOP concepts: inheritance, abstraction, encapsulation, and polymorphism. 
+</p>
 
 ‎ 
-# **👥 Team:**
+# **👥 Team**
 
 👨‍💻 [Abrigo, John Nathaniel](https://github.com/Invxty)  
 👨‍💻 [Angsioco, Edrian](https://github.com/edangsioco)  
@@ -25,32 +26,42 @@ Our team was assigned the abstract base class **`Plant`** as part of our explora
 
 <h1 align="center">The System</h1>
 
+<p align="justify">‎ ‎ ‎ ‎ The system is structured using a base abstract class called Plant and several child classes (Tree, Shrub, Flower, Herb, etc.), each implementing their own version of grow() methods. 
+</p>
+
 ‎ 
 ## **📊 Class Diagram**
-This diagram illustrates the relationship between the abstract base class `Plant` and its various subclasses. 
-Each subclass represents a type of plant with its own unique attributes and behaviors.
 
+<p align="justify">‎‎ ‎ ‎ ‎ This diagram illustrates the relationship between the abstract base class Plant and its various subclasses. 
+Each subclass represents a type of plant with its own unique attributes and behaviors.
+</p>
+
+ 
 ![Class Diagram for our project](diagram.png)
 
 
 ‎ 
-## 🧬 **Properties**
+## **🧬 Properties**
 
-| **Type** |  **Class**  | **Properties**                                                 |
-| :------: | :---------: | :------------------------------------------------------------- |
-|  Parent  |   `Plant`   | `name`, `age`, `species`, `soil_type`, `growth_rate`, `height`, `is_healthy`, `is_watered`, `has_photosynthesized` |
-|   Child  |    `Tree`   | `can_drop_leaves`, `has_fruit` |
-|   Child  |   `Shrub`   | `can_shed_leaves`, `has_thorns` |
-|   Child  |   `Flower`  | `petal_color`, `scent`, `has_nectar`, `is_blooming`, `pollinator` |
-|   Child  |    `Herb`   | `herb_use`, `is_toxic` |
-|   Child  | `Succulent` | `has_thorns`, `water_storage_type` |
-|   Child  |    `Vine`   | `thickness`, `spread_direction_vertical`, `spread_direction_horizontal` |
+<p align="justify">‎ ‎ ‎ ‎ Within this system, each plant comes to life with its own set of characteristics and behaviors, defined by a variety of properties. Every plant, regardless of its type, shares common traits: a name, species, the kind of soil it grows in, its age, height, and overall health. We also keep track of whether it's been watered or is actively photosynthesizing.
+</p>
+
+|  **Class**  | **Properties**                                                 |
+| :---------: | :------------------------------------------------------------- |
+|   `Plant`   | `name`, `age`, `species`, `soil_type`, `growth_rate`, `height`, `is_healthy`, `is_watered`, `has_photosynthesized` |
+|    `Tree`   | `can_drop_leaves`, `has_fruit` |
+|   `Shrub`   | `can_shed_leaves`, `has_thorns` |
+|   `Flower`  | `petal_color`, `scent`, `has_nectar`, `is_blooming`, `pollinator` |
+|    `Herb`   | `herb_use`, `is_toxic` |
+| `Succulent` | `has_thorns`, `water_storage_type` |
+|    `Vine`   | `thickness`, `spread_direction_vertical`, `spread_direction_horizontal` |
 
 ‎ 
-## ⚙️ **Methods**
 
-Below are the functions defined per class. 
-These methods reflect typical behaviors or actions of each plant type.
+## **⚙️ Methods**
+
+<p align="justify">‎ ‎ ‎ ‎ Below are the functions defined per class. These methods reflect typical behaviors or actions of each plant type.
+</p>
 
 ### **🌾 `Plant` (Abstract Base Class)**
 * __init__()
