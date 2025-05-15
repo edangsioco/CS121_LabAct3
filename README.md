@@ -104,42 +104,66 @@ Each subclass represents a type of plant with its own unique attributes and beha
 ‎ 
 <h1 align="center"> Running the Program </h1>
 
-<p align="justify"> ‎‎ ‎ ‎ ‎ To run the program, ensure your Python environment is set up, then execute the main script. Each plant type can be instantiated and interacted with using the provided methods. </p>
+1. **Set Up Your Python Environment**
+   
+   Make sure Python 3 is installed on your system. You can check by running:
+
+   ```
+   python --version
+   ```
+
+2. **Open the Project**
+   
+   Open the folder containing your `.py` file in your preferred IDE or code editor (e.g., VS Code, PyCharm, or IDLE).
+
+3. **Navigate to the Main Script**
+   
+   Locate the main file of the project, typically named something like:
+
+   ```
+   plant_sim.py
+   ```
+
+4. **Run the Program**
+   
+   In your terminal or command prompt, run:
+
+   ```
+   python plant_sim.py
+   ```
+
+5. **Interact with the Program**
+    
+   Once the script is running, you should be greeted with this:
+   ```
+   | 🌼 Step into the Garden: Welcome to the Plant Simulator! 🌼
+   |
+   | Choose a plant:
+   | 1. Tree      4. Herb         7. Exit
+   | 2. Shrub     5. Succulent
+   | 3. Flower    6. Vine
+   |
+   Enter the number of your choice (1-7):
+   ```
 
 
 ‎ 
 <h1 align="center"> Acknowledgment </h1>
 
-‎ ‎ ‎ ‎ We would like to thank our instructor, [Ms. Fatima Marie](https://github.com/marieemoiselle), for the collaborative learning environment that helped make this project possible. For the GIFs in this markdown we credit [@fulifuli on Tumblr](https://fulifuli.tumblr.com/) (dancing plants) and [@animatedglittergraphics-n-more on Tumblr](https://animatedglittergraphics-n-more.tumblr.com/) (plant divider).
+‎ ‎ ‎ ‎ ‎We extend our heartfelt thanks to our instructor, [Ms. Fatima Marie](https://github.com/marieemoiselle), for fostering a collaborative and supportive learning environment that made this project both possible and enjoyable.
+
+Special thanks to the following creators for the visual assets used in this markdown:
+
+* 🌿 **Dancing Plant GIFs** by [@fulifuli on Tumblr](https://fulifuli.tumblr.com/)
+* 🌱 **Plant Divider Graphics** by [@animatedglittergraphics-n-more on Tumblr](https://animatedglittergraphics-n-more.tumblr.com/)
+
+Your creativity brought life and charm to our documentation!
+
+
 
 ‎ 
 <p align="center">
   <img src="https://64.media.tumblr.com/b24bb7086049debe86ccb94762a7d264/5784a6cb587e4fe8-ac/s1280x1920/18284d55366b80010515a2eaf76209a3f93eb845.gifv" alt="oogie boogie woogie~" width="1000">
 </p>
 
-<!----
-#  Code Sample
-
-To display output in the console, use:
-
-```python
-print("hello world")
-```
-
-Sample method (abstract format):
-
-```python
-def watering(self):
-    pass
-
-def photosynthesize(self):
-    pass
-
-def grow(self):
-    pass
-
-def lifespan(self):
-    pass
-```
-
----->
+<!-- nothing follows -->
