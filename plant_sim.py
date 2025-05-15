@@ -17,16 +17,16 @@ class Plant(ABC):
     
     def water(self):
         if self.is_watered:
-            print(f"{self.name} has been watered. Please try again next time")
+            print(f"\n| {self.name} has been nourished. Return when it thirsts once more.")
         else:
-            print(f"{self.name} has been watered.")
+            print(f"\n| Moisture graces the soil of {self.name}.")
             self.is_watered = True
 
     def photosynthesize(self):
         if self.has_photosynthesized:
-            print(f"{self.name} is currently photosynthesizing. Please do not disturb.")
+            print(f"\n| {self.name} is basking in sunlight and weaving energy—kindly let it be.")
         else:
-            print(f"{self.name} is converting sunlight into energy through photosynthesis.")
+            print(f"\n| {self.name} is performing the ancient art of photosynthesis.")
             self.has_photosynthesized = True
             
     @property
@@ -88,7 +88,7 @@ class Tree(Plant):
             self.last_fruit_month = self.age
 
         if self.has_fruit:
-            harvest =  input(f"{self.name} is now bearing fruit. Harvest(y/n)? ").lower()
+            harvest =  input(f"{self.name} is now bearing fruit. Harvest? (y/n): ").lower()
             if harvest == "y":
                     print("Harvesting fruit...")
                     time.sleep(3)
@@ -97,7 +97,7 @@ class Tree(Plant):
             else:
                 print(f"{self.name}'s fruits stay.")
         else:
-            print(f"{self.name} is not ready to produce fruits.")
+            print(f"In due time, {self.name} will fruit—but not today.")
 
     def drop_leaves(self):
         if self.age > 15 and self.age % 6 == 0:
@@ -114,21 +114,23 @@ class Tree(Plant):
             if self.can_drop_leaves == True:
                 print(f"{self.name} is dropping leaves.")
             self.can_drop_leaves = False
-            print(f"Entering month {self.age + 1}...")
+            print(f"| Entering month {self.age + 1}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
-            print(f"Please water the {self.name} first and let it photosynthesize...")
+            print(f"\n| Bestow water upon {self.name} first, and let photosynthesis work its quiet magic...")
 
     def exit(self):
-        print("\nPlant Information:")
-        print(f"Name: {self.name}")
-        print(f"Species: {self.species}")
-        print(f"Age: {self.age}")
-        print(f"Height: {self.height:.3f} cm")
-        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
-        print(f"Has Fruits: {'Yes' if self.has_fruit else 'No'}\n")
-        print(f"Thank you for playing! ^ _ ^")
+        print("\nTree Information:")
+        print(f"| Name       : {self.name}")
+        print(f"| Species    : {self.species}")
+        print(f"| Age        : {self.age}")
+        print(f"| Height     : {self.height:.3f} cm")
+        print(f"| Health     : {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"| Has Fruits : {'Yes' if self.has_fruit else 'No'}\n|")
+        
+        print(f"Together we've grown—thank you! 🌳🤗🌿")
+
 
 
 # class: child (2/6)
@@ -169,16 +171,16 @@ class Shrub(Plant):
             ):
             if self.has_thorns:
                 print("Please be careful, the shrub has thorns.")
-            choice2 = input(f"{self.name} is currently prunable. Proceed(y/n)?")
+            choice2 = input(f"{self.name} is currently prunable. Proceed? (y/n): ")
             if choice2 == "y":
                 print("Currently pruning...")
                 time.sleep(1)
-                print("removing the branch...")
+                print("Removing the branch...")
                 time.sleep(2)
                 print(f"Pruning complete, the {self.name} is now healthy.")
                 self._has_thorns()
                 if self.is_wounded:
-                    print(f"You have been wounded by the thorns, please be careful next time!")
+                    print(f"Ouch! The thorns have left their mark—tread carefully ahead.")
                 self.is_wounded = False
                 self.is_healthy = True
                 self.last_prune = self.age
@@ -189,25 +191,25 @@ class Shrub(Plant):
             ):
             if self.has_thorns:
                 print("Please be careful, the shrub has thorns.")
-            choice3 = input("Plant is currently healthy. Pruning would only cause harm. Continue(y/n)?")
+            choice3 = input("Plant is currently healthy. Pruning would only cause harm. Continue? (y/n): ")
             if choice3 == "y":
                 print("Currently pruning...")
                 time.sleep(1)
-                print("removing the branch...")
+                print("Removing the branch...")
                 time.sleep(2)
                 if self.num == 1:
-                    print(f"Pruning complete. A minor issue was found and fixed. The pruning has made {self.name} even healthier!")
+                    print(f"Pruning complete. A small imperfection was gently healed. {self.name} now thrives even more!")
                     self.is_healthy = True
                 else:
-                    print(f"Pruning complete. The pruning has made the {self.name} unhealthy")
+                    print(f"The pruning is done, though {self.name} has suffered some distress...")
                     self.is_healthy = False
                 self._has_thorns()
                 if self.is_wounded:
-                    print(f"You have been wounded by the thorns. Please be careful next time!")
+                    print(f"Ouch! The thorns have left their mark—tread carefully ahead.")
                 self.is_wounded = False
                 self.last_prune = self.age
         else:
-            print(f"{self.name} cannot be pruned for now.")
+            print(f"{self.name} is currently too delicate for pruning.")
 
     def grow(self):
         if self.is_watered == True and self.has_photosynthesized == True and self.is_healthy == True:
@@ -218,24 +220,26 @@ class Shrub(Plant):
             if self.can_shed_leaves == True:
                 print(f"{self.name} is shedding leaves.")
             self.can_drop_leaves = False
-            print(f"Entering month {self.age + 1}...")
+            print(f"| Entering month {self.age + 1}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
             if self.age > 6 and self.age % 3 == 0:
                 print(f"The {self.name} needs pruning.")
                 self.is_healthy = False
         else:
-            print(f"Please water and prune the {self.name} plant first and let it photosynthesize...") 
+            print(f"\n| Bestow water upon {self.name} first, and let photosynthesis work its quiet magic...") 
             
     def exit(self):
-        print("\nPlant Information:")
-        print(f"Name: {self.name}")
-        print(f"Species: {self.species}")
-        print(f"Age: {self.age}")
-        print(f"Height: {self.height:.3f} cm")
-        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
-        print(f"Has thorns: {self.has_thorns}\n")
-        print(f"Thank you for playing! ^ _ ^")    
+        print("\nShrub Information:")
+        print(f"| Name       : {self.name}")
+        print(f"| Species    : {self.species}")
+        print(f"| Age        : {self.age}")
+        print(f"| Height     : {self.height:.3f} cm")
+        print(f"| Health     : {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"| Has Thorns : {'Yes' if self.has_thorns else 'No'}\n|")
+
+        print("Your care has shaped a mighty shrub—farewell for now! 🌳🌟")
+
 
 
 # class: child (3/6)
@@ -315,22 +319,24 @@ class Flower(Plant):
             self.can_drop_leaves = False
             if self.is_blooming == True:
                 print(f"{self.name} is currently blooming.")
-            print(f"Entering month {self.age + 1}...")
+            print(f"| Entering month {self.age + 1}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
-            print(f"Please water the {self.name} first and let it photosynthesize...")
+            print(f"\n| Bestow water upon {self.name} first, and let photosynthesis work its quiet magic...")
             
     def exit(self):
-        print("\nPlant Information:")
-        print(f"Name: {self.name}")
-        print(f"Species: {self.species}")
-        print(f"Age: {self.age}")
-        print(f"Height: {self.height:.3f} cm")
-        print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
-        print(f"Has Bloomed: {'Yes' if self.is_blooming else 'No'}")
-        print(f"Has Attracted pollinators: {'Yes' if self.attracted_pollinators else 'No'}\n")
-        print(f"Thank you for playing! ^ _ ^")
+        print("\nFlower Information:")
+        print(f"| Name                  : {self.name}")
+        print(f"| Species               : {self.species}")
+        print(f"| Age                   : {self.age}")
+        print(f"| Height                : {self.height:.3f} cm")
+        print(f"| Health                : {'Healthy' if self.is_healthy else 'Unhealthy'}")
+        print(f"| Has Bloomed           : {'Yes' if self.is_blooming else 'No'}")
+        print(f"| Attracted Pollinators : {'Yes' if self.attracted_pollinators else 'No'}\n|")
+
+        print("The petals whisper their thanks. 🌺✨")
+
 
 
 # class: child (4/6)
@@ -417,22 +423,24 @@ class Herb(Plant):
             self.age += 1
             self.has_photosynthesized = False
             self.is_watered = False
-            print(f"Entering month {self.age}...")
+            print(f"| Entering month {self.age}...")
             time.sleep(4)
             print(f"{self.name} has grown by {self.growth_rate} cm. New height is {self.height} cm.")
         else:
-            print(f"Please water the {self.name} first and let it photosynthesize...")
+            print(f"\n| Bestow water upon {self.name} first, and let photosynthesis work its quiet magic...")
             
     def exit(self):
-                print("\nPlant Information:")
-                print(f"Name: {self.name}")
-                print(f"Species: {self.species}")
-                print(f"Age: {self.age}")
-                print(f"Height: {self.height:.3f} cm")
-                print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
-                print(f"Is safe for consumption: {'Yes' if self.check_consumption else 'No'}")
-                print(f"Used for: {self.herb_use}\n")
-                print(f"Thank you for playing! ^ _ ^")
+            print("\nHerb Information:")
+            print(f"| Name                 : {self.name}")
+            print(f"| Species              : {self.species}")
+            print(f"| Age                  : {self.age}")
+            print(f"| Height               : {self.height:.3f} cm")
+            print(f"| Health               : {'Healthy' if self.is_healthy else 'Unhealthy'}")
+            print(f"| Safe for Consumption : {'Yes' if self.check_consumption else 'No'}")
+            print(f"| Used for             : {self.herb_use}\n|")
+
+            print("The herb thanks you with a fragrant breeze. 🌾💨")
+
 
 
 # class: child (5/6)
@@ -467,7 +475,7 @@ class Succulent(Plant):
                 self.height += self.growth_rate
                 self.is_watered = False
                 self.has_photosynthesized = False
-                print(f"Entering month {self.age}...")
+                print(f"| Entering month {self.age}...")
                 time.sleep(4)
                 print(f"{self.name} has grown by {self.growth_rate}cm using fresh water. ")
                 print(f"New height is {self.height:.3f} cm.")
@@ -476,7 +484,7 @@ class Succulent(Plant):
                 self.height += self.growth_rate
                 self.is_storing_water = False
                 self.has_photosynthesized = False
-                print(f"Entering month {self.age}...")
+                print(f"| Entering month {self.age}...")
                 time.sleep(4)
                 print(f"{self.name} has grown by {self.growth_rate} cm using stored water from its {self.water_storage_type}.")
                 print(f"New height is {self.height:.3f} cm.")
@@ -496,15 +504,17 @@ class Succulent(Plant):
                 print(f"{self.name} won't survive the drought.")
                 
         def exit(self):
-            print("\nPlant Information:")
-            print(f"Name: {self.name}")
-            print(f"Species: {self.species}")
-            print(f"Age: {self.age}")
-            print(f"Height: {self.height:.3f} cm")
-            print(f"Water Storage Type: {self.water_storage_type}")
-            print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}")
-            print(f"Has stored water: {'Yes' if self.is_storing_water else 'No'}\n")
-            print(f"Thank you for playing! ^ _ ^")
+            print("\nSucculent Information:")
+            print(f"| Name               : {self.name}")
+            print(f"| Species            : {self.species}")
+            print(f"| Age                : {self.age}")
+            print(f"| Height             : {self.height:.3f} cm")
+            print(f"| Water Storage Type : {self.water_storage_type}")
+            print(f"| Health             : {'Healthy' if self.is_healthy else 'Unhealthy'}")
+            print(f"| Stored Water       : {'Yes' if self.is_storing_water else 'No'}\n|")
+
+            print("Thanks for hydrating hope in the driest of places. 🌵✨")
+
 
 
 # class: child (6/6)
@@ -558,7 +568,7 @@ class Vine(Plant):
                 self.age += 1
                 self.has_photosynthesized = False
                 self.is_watered = False
-                print(f"Entering month {self.age}...")
+                print(f"| Entering month {self.age}...")
                 time.sleep(4)
                 if not self.spread_direction_vertical and self.spread_direction_horizontal:
                     print(f"{self.name} has grown horizontally by {self.growth_rate} cm. New horizontal height is {self.height_horizontal} cm, New vertical height is {self.height_vertical} cm, and current thickness is {self.thickness} cm.")
@@ -569,18 +579,20 @@ class Vine(Plant):
                 self.spread_direction_vertical = False
                 self.spread_direction_horizontal = False
             else:
-                print(f"Please water the {self.name} first and let it photosynthesize...")
+                print(f"\n| Bestow water upon {self.name} first, and let photosynthesis work its quiet magic...")
                 
         def exit(self):
-            print("\nPlant Information:")
-            print(f"Name: {self.name}")
-            print(f"Species: {self.species}")
-            print(f"Age: {self.age}")
-            print(f"Vertical height: {self.height_vertical:.3f} cm")
-            print(f"Horizontal height: {self.height_horizontal:.3f} cm")
-            print(f"Thickness: {self.thickness:.3f} cm")
-            print(f"Health: {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
-            print(f"Thank you for playing! ^ _ ^")
+            print("\nVine Information:")
+            print(f"| Name              : {self.name}")
+            print(f"| Species           : {self.species}")
+            print(f"| Age               : {self.age}")
+            print(f"| Vertical Height   : {self.height_vertical:.3f} cm")
+            print(f"| Horizontal Spread : {self.height_horizontal:.3f} cm")
+            print(f"| Thickness         : {self.thickness:.3f} cm")
+            print(f"| Health            : {'Healthy' if self.is_healthy else 'Unhealthy'}\n")
+
+            print("Twisting, trailing, and truly grateful. 💚🌿")
+
 
 ########################################################################################################################################
 
@@ -588,9 +600,11 @@ class Vine(Plant):
 soil_types = ["sandy", "clay", "silty", "loamy", "peaty", "chalky"]
 
 # MENU
+print()
+print("| 🌼 Step into the Garden: Welcome to the Plant Simulator! 🌼\n|")
+
+
 while(True):
-    print()
-    print("| Welcome to the Plant Simulator!\n|")
     print("| Choose a plant:")
     print("| 1. Tree      4. Herb         7. Exit")
     print("| 2. Shrub     5. Succulent")
@@ -600,14 +614,14 @@ while(True):
     
     # Plant: Tree
     if choice == "1":
-        name = input("\nGrant this plant its rightful name: ").capitalize() + " Tree"
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize() + " Tree"
         height = 0
         age = 0
         is_healthy = True
         
         # set soil type
         while(True):
-            soil_type = input("\nEnter soil type: (Chalky, Clay, Loamy, Peaty, Sandy, Silty)\n... I pick: ").lower()
+            soil_type = input("\n| Enter soil type: (Chalky, Clay, Loamy, Peaty, Sandy, Silty)\n... I pick: ").lower()
 
             if soil_type == "sandy" or soil_type == "chalky":
                 print("\nTrees are not compatible with that soil, please select again.")
@@ -651,7 +665,7 @@ while(True):
     
     # Plant: Shrub
     elif choice == "2":
-        name = input("\nGrant this plant its rightful name: ").capitalize() + " Shrub"
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize() + " Shrub"
         height = 0
         age = 0
 
@@ -714,7 +728,7 @@ while(True):
     
     # Plant: Flower
     elif choice == "3":
-        name = input("\nGrant this plant its rightful name: ").capitalize()
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize()
         height = 0
         age = 0
         petal_colors = ["Red", "Orange", 'Yellow', 'Green', 'Blue', 'Indigo', 'Violet', 'White', 'Pink']
@@ -778,7 +792,7 @@ while(True):
     
     # Plant: Herb
     elif choice == "4":
-        name = input("\nGrant this plant its rightful name: ").capitalize()
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize()
         age = 0
         height = 0
         is_healthy = True
@@ -834,7 +848,7 @@ while(True):
 
     # Plant: Succulent
     elif choice == "5":
-        name = input("\nGrant this plant its rightful name: ").capitalize()
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize()
         species = "Succulent"
         height = 0
         age = 0
@@ -891,7 +905,7 @@ while(True):
     
     # Plant: Vine
     elif choice == "6":
-        name = input("\nGrant this plant its rightful name: ").capitalize()
+        name = input("\n| Grant this plant its rightful name! \nName: ").capitalize()
         species = "Vine"
         height = 0
         height_vertical = 0
@@ -945,9 +959,9 @@ while(True):
     
     # exit
     elif choice == "7":
-        print("Thank you for using the Plant Simulator!")
+        print("\n| With gratitude from the garden — thank you! 🌷\n")
         break
     else:
-        print("Invalid choice.")
+        print("Alas, that isn't a valid choice. Pick again, wise one.")
 
     
