@@ -19,12 +19,16 @@
 👩‍💻 [Calabia, Geanne Margaret](https://github.com/Ennage)
 
 ‎ 
-
+‎ 
+‎ 
 <p align="center">
   <img src="https://64.media.tumblr.com/b24bb7086049debe86ccb94762a7d264/5784a6cb587e4fe8-ac/s1280x1920/18284d55366b80010515a2eaf76209a3f93eb845.gifv" alt="oogie boogie woogie~" width="1000">
 </p>
 
-<h1 align="center">The System</h1>
+‎ 
+‎ 
+‎ 
+<h1 align="center">🌟 The System 🌟</h1>
 
 <p align="justify">‎ ‎ ‎ ‎ The system is structured using a base abstract class called Plant and several child classes (Tree, Shrub, Flower, Herb, etc.), each implementing their own version of grow() methods. 
 </p>
@@ -36,7 +40,8 @@
 Each subclass represents a type of plant with its own unique attributes and behaviors.
 </p>
 
- 
+
+  
 ![Class Diagram for our project](class_diagram.png)
 
 
@@ -98,57 +103,66 @@ Each subclass represents a type of plant with its own unique attributes and beha
 * check_vine_spread()
 
 ‎ 
+‎ 
+‎ 
 <p align="center">
   <img src="https://64.media.tumblr.com/b24bb7086049debe86ccb94762a7d264/5784a6cb587e4fe8-ac/s1280x1920/18284d55366b80010515a2eaf76209a3f93eb845.gifv" alt="oogie boogie woogie~" width="1000">
 </p>
-‎ 
-<h1 align="center"> Running the Program </h1>
-
-1. **Set Up Your Python Environment**
-   
-   Make sure Python 3 is installed on your system. You can check by running:
-
-   ```
-   python --version
-   ```
-
-2. **Open the Project**
-   
-   Open the folder containing your `.py` file in your preferred IDE or code editor (e.g., VS Code, PyCharm, or IDLE).
-
-3. **Navigate to the Main Script**
-   
-   Locate the main file of the project, typically named something like:
-
-   ```
-   plant_sim.py
-   ```
-
-4. **Run the Program**
-   
-   In your terminal or command prompt, run:
-
-   ```
-   python plant_sim.py
-   ```
-
-5. **Interact with the Program**
-    
-   Once the script is running, you should be greeted with this:
-   ```
-   | 🌼 Step into the Garden: Welcome to the Plant Simulator! 🌼
-   |
-   | Choose a plant:
-   | 1. Tree      4. Herb         7. Exit
-   | 2. Shrub     5. Succulent
-   | 3. Flower    6. Vine
-   |
-   Enter the number of your choice (1-7):
-   ```
-
 
 ‎ 
-<h1 align="center"> Acknowledgment </h1>
+‎ 
+‎ 
+<h1 align="center">⚙️ Running the Program ⚙️</h1>
+
+### 1. **Set Up Your Python Environment**
+
+Make sure Python 3 is installed on your system. You can check by running:
+
+```
+python --version
+```
+
+‎ 
+### 2. **Open the Project**
+
+Open the folder containing your `.py` file in your preferred IDE or code editor (e.g., VS Code, PyCharm, or IDLE).
+
+‎ 
+### 3. **Navigate to the Main Script**
+
+Locate the main file of the project, typically named something like:
+
+```
+plant_sim.py
+```
+
+‎ 
+### 4. **Run the Program**
+
+In your terminal or command prompt, run:
+
+```
+python plant_sim.py
+```
+
+‎ 
+### 5. **Interact with the Program**
+
+Once the script is running, you should be greeted with this:
+```
+| 🌼 Step into the Garden: Welcome to Plant Simulator! 🌼
+|
+| Choose a plant:
+| 1. Tree      4. Herb         7. Exit
+| 2. Shrub     5. Succulent
+| 3. Flower    6. Vine
+|
+Enter the number of your choice (1-7):
+```
+‎Choose your plant and begin your botanical adventure!
+
+‎ 
+<h1 align="center">💕 Acknowledgment 💕</h1>
 
 ‎ ‎ ‎ ‎ ‎We extend our heartfelt thanks to our instructor, [Ms. Fatima Marie](https://github.com/marieemoiselle), for fostering a collaborative and supportive learning environment that made this project both possible and enjoyable.
 
