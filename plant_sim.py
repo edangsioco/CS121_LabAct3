@@ -608,7 +608,7 @@ while(True):
     print("| Choose a plant:")
     print("| 1. Tree      4. Herb         7. Exit")
     print("| 2. Shrub     5. Succulent")
-    print("| 3. Flower    6. Vine")
+    print("| 3. Flower    6. Vine\n|")
     choice = input("Enter the number of your choice (1-7): ")
 
     
